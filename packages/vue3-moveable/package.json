@@ -50,7 +50,8 @@
     "homepage": "https://daybrush.com/moveable",
     "dependencies": {
         "framework-utils": "^1.1.0",
-        "moveable": "~0.44.2"
+        "moveable": "~0.44.2",
+        "pinia": "^2.0.33"
     },
     "files": [
         "./*",

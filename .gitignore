@@ -24,3 +24,4 @@ demo/storybook2
 dist/
 *.lerna_backup
 test.js
+.history
