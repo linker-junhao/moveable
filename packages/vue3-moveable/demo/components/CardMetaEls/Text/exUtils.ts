@@ -1,12 +1,21 @@
+import { v4 as uuidv4 } from 'uuid';
 import { ComponentConfig } from "../../../storeElsInEditor"
 
 const genInitialConfig: () => ComponentConfig = () => {
   return {
     name: 'Text',
     style: {
-      "white-space": 'nowrap'
+      "position": "absolute",
+      "width": "180px",
+      "height": "24px",
+      "background-color": 'red'
     },
     dataType: 'leaf',
-    children: []
+    uuid: uuidv4(),
+    value: 'test'
   }
+}
+
+export {
+  genInitialConfig
 }

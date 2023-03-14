@@ -51,7 +51,8 @@
     "dependencies": {
         "framework-utils": "^1.1.0",
         "moveable": "~0.44.2",
-        "pinia": "^2.0.33"
+        "pinia": "^2.0.33",
+        "uuid": "^9.0.0"
     },
     "files": [
         "./*",
