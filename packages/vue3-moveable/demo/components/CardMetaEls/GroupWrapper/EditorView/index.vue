@@ -1,5 +1,5 @@
 <template>
-  <div :ref="setContainerRef" :style="{ ...props.componentConfig.style, 'background-image': props.componentConfig.value }">
+  <div class="card-el" :ref="setContainerRef" :style="{ ...props.componentConfig.style, 'background-image': props.componentConfig.value }">
     <slot :container="containerRef"></slot>
   </div>
 </template>

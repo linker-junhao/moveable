@@ -3,6 +3,7 @@
         <div class="editor-page-box">
             <!-- 组件选择栏 -->
             <div>
+                <CardMetaElList />
             </div>
             <!-- 渲染预览 -->
             <div class="render-area">
@@ -24,12 +25,14 @@ import Moveable from "../src/Moveable.vue";
 import { useStoreElsInEditor } from './storeElsInEditor'
 import TransparentBackground from './components/TransparentBackground'
 import CardElGenerator from './components/CardElGenerator/index.vue'
+import CardMetaElList from './components/CardMetaElList/index.vue'
 
 export default defineComponent({
     components: {
         Moveable,
         TransparentBackground,
-        CardElGenerator
+        CardElGenerator,
+        CardMetaElList
     },
     setup() {
         const storeElsInEditor = useStoreElsInEditor()

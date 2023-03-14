@@ -1,5 +1,5 @@
 <template>
-  <div @click="handleClick">Text</div>
+  <div @click="handleClick">Title</div>
 </template>
 
 <script setup lang="ts">

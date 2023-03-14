@@ -1,5 +1,5 @@
 <template>
-  <div @click="handleClick">Text</div>
+  <div @click="handleClick">Avatar</div>
 </template>
 
 <script setup lang="ts">
