@@ -1,5 +1,0 @@
-const genCommonConfig = () => {
-  return {
-    
-  }
-}

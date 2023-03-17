@@ -1,5 +1,5 @@
 <template>
-  <div @click="handleClick">GroupWrapper</div>
+  <div @click="handleClick">Logo</div>
 </template>
 
 <script setup lang="ts">
@@ -11,7 +11,7 @@ const emit = defineEmits<{
 }>()
 
 const handleClick = () => {
-  emit('click', genInitialConfig([]))
+  emit('click', genInitialConfig())
 }
 
 </script>

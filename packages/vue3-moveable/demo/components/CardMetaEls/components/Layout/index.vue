@@ -1,6 +1,8 @@
 <template>
-  <div v-if="dataActiveComponentConfig?.name === 'Avatar'">
-    src: <input v-model="dataActiveComponentConfig.value" />
+  <div v-if="dataActiveComponentConfig">
+    <input placeholder="宽" v-model="dataActiveComponentConfig.style.width" />
+    x
+    <input placeholder="高"  v-model="dataActiveComponentConfig.style.height" />
   </div>
 </template>
 
@@ -9,5 +11,4 @@ import { useStoreElsInEditor } from '../../../../storeElsInEditor';
 
 const storeElsInEditor = useStoreElsInEditor()
 const { dataActiveComponentConfig } = storeElsInEditor
-
 </script>

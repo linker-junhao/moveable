@@ -2,37 +2,42 @@
     <div class="root">
         <div class="editor-page-box">
             <!-- 组件选择栏 -->
-            <div>
+            <div @click.capture="handlePanelClick('Lib')">
                 <CardMetaElList />
             </div>
             <!-- 渲染预览 -->
-            <div class="render-area">
+            <div @click.capture="handlePanelClick('MoveableView')" class="render-area">
                 <TransparentBackground />
                 <div :ref="setRootContainer" class="place-ground" style="z-index: 1; position: relative;">
-                    <CardElGenerator :container="rootContainerRef" :componentConfig="storeElsInEditor.dataConfig"/>
+                    <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef" :componentConfig="dataConfig" />
+                    <EditorMoveable />
                 </div>
             </div>
             <!-- 组件控制栏 -->
-            <div>
-
+            <div @click.capture="handlePanelClick('ConfigPanel')">
+                <ActiveConfigJSONEditor />
             </div>
         </div>
     </div>
 </template>
 <script>
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import Moveable from "../src/Moveable.vue";
 import { useStoreElsInEditor } from './storeElsInEditor'
 import TransparentBackground from './components/TransparentBackground'
 import CardElGenerator from './components/CardElGenerator/index.vue'
 import CardMetaElList from './components/CardMetaElList/index.vue'
+import ActiveConfigJSONEditor from './components/ActiveConfigJSONEditor/index.vue'
+import EditorMoveable from './components/EditorMoveable'
 
 export default defineComponent({
     components: {
+        EditorMoveable,
         Moveable,
         TransparentBackground,
         CardElGenerator,
-        CardMetaElList
+        CardMetaElList,
+        ActiveConfigJSONEditor
     },
     setup() {
         const storeElsInEditor = useStoreElsInEditor()
@@ -40,24 +45,29 @@ export default defineComponent({
         const setRootContainer = (el) => {
             rootContainerRef.value = el
         }
+        const dataConfig = computed(() => {
+            console.log(storeElsInEditor.dataConfig)
+            return storeElsInEditor.dataConfig
+        })
         return {
-            storeElsInEditor,
+            dataConfig,
             setRootContainer,
-            rootContainerRef
+            rootContainerRef,
+            handlePanelClick: storeElsInEditor.setUserFocusAt
         };
-    },
-    data() {}
+    }
 });
 </script>
 
 <style>
 .editor-page-box {
     display: grid;
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: 200px 1fr 600px;
 }
 
 .render-area {
     position: relative;
+    height: 100%;
 }
 
 .target {

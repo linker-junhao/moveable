@@ -1,5 +1,5 @@
 <template>
-  <svg style="position: absolute; left: 0; top: 0;" version="1.1" viewBox="0 0 512 512">
+  <svg style="position: absolute; left: 0; top: 0;" version="1.1" viewBox="0 0 500 1000">
     <pattern x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse" id="transparent" viewBox="0 -10 10 10"
       overflow="visible">
       <g>

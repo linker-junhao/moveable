@@ -8,6 +8,9 @@ interface BaseComponentConfig {
   style: CSSProperties
   uuid: string
   value: any
+  editBehavior?: {
+    locked: boolean
+  }
 }
 
 export interface LeafComponentConfig extends BaseComponentConfig {
@@ -20,13 +23,9 @@ export interface BranchComponentConfig extends BaseComponentConfig {
 export type ComponentConfig = LeafComponentConfig | BranchComponentConfig
 
 const useStoreElsInEditor = defineStore('ElsInEditor', () => {
-  const dataConfig = reactive<ComponentConfig[]>([
-    genInitialConfigGroupWrapper([genInitialConfigText()])
-  ])
-
   // 目前选中的组件对应的数据
   const dataActiveComponentConfig = ref<null | ComponentConfig>(null)
-  const setActiveComponentConfig = (componentConfig: ComponentConfig) => {
+  const setActiveComponentConfig = (componentConfig: ComponentConfig|null) => {
     dataActiveComponentConfig.value = componentConfig
   }
   // 目前活跃的元素
@@ -34,10 +33,30 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
   const setActiveElRef = (el) => {
     activeElRef.value = el
   }
+  // 目前活跃的元素
+  const activeElContainerRef = ref<HTMLElement>()
+  const setActiveElContainerRef = (el) => {
+    activeElContainerRef.value = el
+  }
+
+  const initVal = genInitialConfigGroupWrapper([genInitialConfigText()])
+  initVal.editBehavior.locked = true
+  initVal.value = `url('https://img0.baidu.com/it/u=3032776730,2178451350&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800')`
+  const dataConfig = ref(reactive<ComponentConfig[]>([initVal]))
+  const setDataConfig = (config) => {
+    setActiveComponentConfig(null)
+    setActiveElRef(null)
+    dataConfig.value = config
+  }
 
   // 添加一个组件
   const addComponent = (componentConfig) => {
-    dataConfig.push(componentConfig)
+    const activeConfigData = dataActiveComponentConfig.value
+    if (activeConfigData?.dataType === 'branch') {
+      activeConfigData.children.push(componentConfig)
+    } else if(dataConfig[0].dataType === 'branch') {
+      dataConfig[0].children.push(componentConfig)
+    }
     return dataConfig
   }
 
@@ -50,6 +69,13 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     }
   }
 
+  type UserFocusAt = ''|'Lib'|'MoveableView'|'ConfigPanel'
+  const userFocusAt = ref<UserFocusAt>('')
+  const setUserFocusAt = (at: UserFocusAt) => {
+    userFocusAt.value = at
+  }
+
+
   return {
     // 添加一个组件
     addComponent,
@@ -57,10 +83,15 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     moveToBranch,
     // 配置数据
     dataConfig,
+    setDataConfig,
     setActiveComponentConfig,
     dataActiveComponentConfig,
     activeElRef,
-    setActiveElRef
+    setActiveElRef,
+    activeElContainerRef,
+    setActiveElContainerRef,
+    userFocusAt,
+    setUserFocusAt
   }
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="dataActiveComponentConfig?.name === 'Avatar'">
+  <div v-if="dataActiveComponentConfig?.name === 'Logo'">
     src: <input v-model="dataActiveComponentConfig.value" />
   </div>
 </template>
