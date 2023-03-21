@@ -49,6 +49,8 @@
     },
     "homepage": "https://daybrush.com/moveable",
     "dependencies": {
+        "@scena/guides": "^0.24.0",
+        "@scena/ruler": "^0.16.0",
         "framework-utils": "^1.1.0",
         "jsoneditor": "^9.10.0",
         "moveable": "~0.44.2",

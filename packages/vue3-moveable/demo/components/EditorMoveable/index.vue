@@ -42,6 +42,7 @@ const moveableRef = ref(null);
 const setMoveableRef = (el) => {
   console.log(el)
   moveableRef.value = el
+  storeElsInEditor.setMoveableRef(el)
 }
 const isCurElLocked = computed(() => {
   return storeElsInEditor.dataActiveComponentConfig?.editBehavior?.locked === true

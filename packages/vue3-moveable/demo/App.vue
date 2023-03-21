@@ -7,7 +7,6 @@
             </div>
             <!-- 渲染预览 -->
             <div @click.capture="handlePanelClick('MoveableView')" class="render-area">
-                <TransparentBackground />
                 <div :ref="setRootContainer" class="place-ground" style="z-index: 1; position: relative;">
                     <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef" :componentConfig="dataConfig" />
                     <EditorMoveable />
@@ -26,8 +25,10 @@
     </div>
 </template>
 <script>
-import { computed, defineComponent, ref } from "vue";
-import Moveable from "../src/Moveable.vue";
+import { computed, defineComponent, ref, watchEffect } from "vue"
+import Guides from "@scena/guides"
+import Ruler from "@scena/ruler"
+import Moveable from "../src/Moveable.vue"
 import { useStoreElsInEditor } from './storeElsInEditor'
 import TransparentBackground from './components/TransparentBackground'
 import CardElGenerator from './components/CardElGenerator/index.vue'
@@ -48,8 +49,42 @@ export default defineComponent({
         const storeElsInEditor = useStoreElsInEditor()
         const rootContainerRef = ref()
         const setRootContainer = (el) => {
-            rootContainerRef.value = el
+            if(rootContainerRef.value !== el) {
+                rootContainerRef.value = el
+            }
         }
+
+        watchEffect(() => {
+            if(rootContainerRef.value) {
+                const guidesV = new Guides(rootContainerRef.value, {
+                    type: "vertical",
+                }).on("changeGuides", e => {
+                    console.log(e.guides);
+                });
+
+                const guidesH = new Guides(rootContainerRef.value, {
+                    type: "horizontal",
+                }).on("changeGuides", e => {
+                    console.log(e.guides);
+                });
+
+                let scrollX = 0;
+                let scrollY = 0;
+                window.addEventListener("resize", () => {
+                    guidesV.resize();
+                    guidesH.resize();
+                });
+
+                window.addEventListener("wheel", e => {
+                    scrollX += e.deltaX;
+                    scrollY += e.deltaY;
+
+                    guidesV.scrollGuides(scrollY);
+                    guidesH.scrollGuides(scrollX);
+                });
+            }
+        })
+
         const dataConfig = computed(() => {
             console.log(storeElsInEditor.dataConfig)
             return storeElsInEditor.dataConfig
@@ -68,7 +103,7 @@ export default defineComponent({
 <style>
 .editor-page-box {
     display: grid;
-    grid-template-columns: 200px 1fr 600px;
+    grid-template-columns: 200px 1fr 400px;
 }
 
 .render-area {

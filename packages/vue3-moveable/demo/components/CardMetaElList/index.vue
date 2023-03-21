@@ -42,6 +42,9 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
       "config_field_name": "background",
       "name": "GroupWrapper",
       "dataType": "branch",
+      "editBehavior": {
+        "locked": true
+      },
       "value": "url('https://ss-static.intsig.net/10000_7995f223aaf104c2856cfb109bc5757a.png')",
       "children": [
         {
@@ -117,7 +120,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
         },
         {
           "name": "Avatar",
-          "config_field_name": "avatar",
+          "config_field_name": "template_profile",
           "dataType": "leaf",
           "style": {
             "position": "absolute",
@@ -132,7 +135,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
         },
         {
           "name": "Logo",
-          "config_field_name": "logo",
+          "config_field_name": "template_logo",
           "dataType": "leaf",
           "style": {
             "position": "absolute",

@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
-import JSONEditor from 'jsoneditor'
+import { ref, watchEffect, nextTick } from 'vue';
+import JSONEditor from 'jsoneditor/dist/jsoneditor'
 import { useStoreElsInEditor } from '../../storeElsInEditor';
 
 const storeElsInEditor = useStoreElsInEditor()
@@ -33,6 +33,9 @@ const saveJSONToStore = (config) => {
   if(config.children && activeConfigData.dataType === 'branch') {
     activeConfigData.children = config.children
   }
+  nextTick(() => {
+    storeElsInEditor.moveableRef?.updateTarget()
+  })
 }
 
 watchEffect(() => {
@@ -45,16 +48,11 @@ watchEffect(() => {
         if(path[path.length - 1] === 'position') {
           return ['relative', 'absolute']
         }
-        return text
+        return []
       }
     },
-    onChangeText(text) {
-      try {
-        const json = JSON.parse(text)
-        saveJSONToStore(json)
-      } catch (e) {
-        console.log(e)
-      }
+    onChangeJSON(json) {
+      saveJSONToStore(json)
     },
     mode: 'tree',
     modes: ['tree', 'view', 'code'],
@@ -98,16 +96,13 @@ watchEffect(() => {
   }
   if(currentJsonEditorBindActiveConfigUUid !== activeConfigData.uuid) {
     currentJsonEditorBindActiveConfigUUid = activeConfigData.uuid
+    jsonEditorInstance.set(activeConfigData)
+    jsonEditorInstance.expandAll()
+  } else {
+    if(storeElsInEditor.userFocusAt !== 'ConfigPanel') {
+      jsonEditorInstance.update(activeConfigData)
+    }
   }
-  jsonEditorInstance.set(activeConfigData.dataType === 'branch' ? {
-    style: activeConfigData.style,
-    value: activeConfigData.value,
-    children: activeConfigData.children
-  } : {
-    style: activeConfigData.style,
-    value: activeConfigData.value
-  })
-  jsonEditorInstance.expandAll()
 })
 
 </script>

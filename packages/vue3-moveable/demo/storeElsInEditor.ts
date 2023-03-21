@@ -96,6 +96,12 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     return ret
   })
 
+  // moveable ref
+  const moveableRef = ref()
+  const setMoveableRef = (moveableInstance) => {
+    moveableRef.value = moveableInstance
+  }
+
 
   return {
     // 添加一个组件
@@ -113,7 +119,9 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     setActiveElContainerRef,
     userFocusAt,
     setUserFocusAt,
-    convertedOldFormatConfigData
+    convertedOldFormatConfigData,
+    moveableRef,
+    setMoveableRef
   }
 })
 
