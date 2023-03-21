@@ -38,9 +38,10 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
         "height": "500px",
         "background-color": "#e6e6e6"
       },
-      "uuid": "111",
+      "uuid": "v",
+      "config_field_name": "background",
       "name": "GroupWrapper",
-      "dataType": 'branch',
+      "dataType": "branch",
       "value": "url('https://ss-static.intsig.net/10000_7995f223aaf104c2856cfb109bc5757a.png')",
       "children": [
         {
@@ -51,6 +52,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
             "transform": " translate(28px, 58px) ",
             "width": "325px"
           },
+          "config_field_name": "name_title_company_wrapper",
           "editBehavior": {
             "locked": false
           },
@@ -58,6 +60,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
             {
               "dataType": "leaf",
               "name": "Name",
+              "config_field_name": "name",
               "style": {
                 "width": "284px",
                 "height": "38px",
@@ -75,6 +78,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
             {
               "dataType": "leaf",
               "name": "Title",
+              "config_field_name": "title",
               "style": {
                 "width": "240px",
                 "height": "18px",
@@ -92,6 +96,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
             {
               "dataType": "leaf",
               "name": "Company",
+              "config_field_name": "company",
               "style": {
                 "width": "229px",
                 "height": "18px",
@@ -112,6 +117,7 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
         },
         {
           "name": "Avatar",
+          "config_field_name": "avatar",
           "dataType": "leaf",
           "style": {
             "position": "absolute",
@@ -125,7 +131,8 @@ const changeCardType = (type: 'vertical'|'horizontal') => {
           "value": "https://ccpre1.intsig.net/sync/download_multimedia?url=1222931086_8f87f59ad372d4d58b0a52ddcd9fbb4b"
         },
         {
-          "name": "Avatar",
+          "name": "Logo",
+          "config_field_name": "logo",
           "dataType": "leaf",
           "style": {
             "position": "absolute",

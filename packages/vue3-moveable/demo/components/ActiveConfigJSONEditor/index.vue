@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; height: 80vh;" :ref="setJSONEditorElRef"></div>
+  <div style="width: 100%; height: 500px;" :ref="setJSONEditorElRef"></div>
 </template>
 
 <script setup lang="ts">
@@ -98,15 +98,16 @@ watchEffect(() => {
   }
   if(currentJsonEditorBindActiveConfigUUid !== activeConfigData.uuid) {
     currentJsonEditorBindActiveConfigUUid = activeConfigData.uuid
-    jsonEditorInstance.set(activeConfigData.dataType === 'branch' ? {
-      style: activeConfigData.style,
-      value: activeConfigData.value,
-      children: activeConfigData.children
-    } : {
-      style: activeConfigData.style,
-      value: activeConfigData.value
-    })
   }
+  jsonEditorInstance.set(activeConfigData.dataType === 'branch' ? {
+    style: activeConfigData.style,
+    value: activeConfigData.value,
+    children: activeConfigData.children
+  } : {
+    style: activeConfigData.style,
+    value: activeConfigData.value
+  })
+  jsonEditorInstance.expandAll()
 })
 
 </script>

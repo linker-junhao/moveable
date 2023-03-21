@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { CSSProperties, reactive, ref } from "vue";
+import { computed, CSSProperties, reactive, ref } from "vue";
 import { genInitialConfig as genInitialConfigText } from "./components/CardMetaEls/Text/exUtils";
 import { genInitialConfig as genInitialConfigGroupWrapper } from "./components/CardMetaEls/GroupWrapper/exUtils";
 
@@ -75,6 +75,27 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     userFocusAt.value = at
   }
 
+  const convertedOldFormatConfigData = computed(() => {
+    const convertItem = (item, result) => {
+      if (item?.config_field_name) {
+        result[item.config_field_name] = {
+          isShow: true,
+          value: item.value,
+          style: item.style
+        }
+      }
+      item.children?.forEach(item => {
+        convertItem(item, result)
+      });
+    }
+    const ret = {}
+    console.log('dataConfig changed', dataConfig.value)
+    if(dataConfig.value?.length) {
+      convertItem(dataConfig.value[0], ret)
+    }
+    return ret
+  })
+
 
   return {
     // 添加一个组件
@@ -91,7 +112,8 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     activeElContainerRef,
     setActiveElContainerRef,
     userFocusAt,
-    setUserFocusAt
+    setUserFocusAt,
+    convertedOldFormatConfigData
   }
 })
 

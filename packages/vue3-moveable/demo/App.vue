@@ -14,8 +14,13 @@
                 </div>
             </div>
             <!-- 组件控制栏 -->
-            <div @click.capture="handlePanelClick('ConfigPanel')">
-                <ActiveConfigJSONEditor />
+            <div>
+                <div @click.capture="handlePanelClick('ConfigPanel')">
+                    <ActiveConfigJSONEditor />
+                </div>
+                <div>
+                    {{ storeElsInEditor.convertedOldFormatConfigData }}
+                </div>
             </div>
         </div>
     </div>
@@ -53,7 +58,8 @@ export default defineComponent({
             dataConfig,
             setRootContainer,
             rootContainerRef,
-            handlePanelClick: storeElsInEditor.setUserFocusAt
+            handlePanelClick: storeElsInEditor.setUserFocusAt,
+            storeElsInEditor
         };
     }
 });

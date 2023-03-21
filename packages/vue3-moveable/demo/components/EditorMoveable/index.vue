@@ -79,7 +79,7 @@ const onRotate = e => {
 
 const elementGuidelines = computed(() => {
   console.log('container', storeElsInEditor.activeElContainerRef)
-  return Array.from(storeElsInEditor.activeElContainerRef?.querySelectorAll('.card-el') as any || [])
+  return Array.from(storeElsInEditor.activeElContainerRef?.querySelectorAll('.card-el') || [])
 })
 
 </script>
