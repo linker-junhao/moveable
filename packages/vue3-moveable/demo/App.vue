@@ -6,8 +6,11 @@
                 <CardMetaElList />
             </div>
             <!-- 渲染预览 -->
-            <div @click.capture="handlePanelClick('MoveableView')" class="render-area">
-                <div :ref="setRootContainer" class="place-ground" style="z-index: 1; position: relative;">
+            <div @click.capture="handlePanelClick('MoveableView')" :ref="setRenderAreaRef" class="render-area">
+                <div :ref="setRulerBoxRef" class="ruler-box"></div>
+                <div :ref="setVerticalRulerRef" class="ruler vertical"></div>
+                <div :ref="setHorizontalRulerRef" class="ruler horizontal"></div>
+                <div :ref="setRootContainer" class="place-ground" style="margin: 30px;z-index: 1; position: relative;">
                     <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef" :componentConfig="dataConfig" />
                     <EditorMoveable />
                 </div>
@@ -15,7 +18,8 @@
             <!-- 组件控制栏 -->
             <div>
                 <div @click.capture="handlePanelClick('ConfigPanel')">
-                    <ActiveConfigJSONEditor />
+                    <!-- <ActiveConfigJSONEditor /> -->
+                    <ElementControlPane />
                 </div>
                 <div>
                     {{ storeElsInEditor.convertedOldFormatConfigData }}
@@ -27,7 +31,7 @@
 <script>
 import { computed, defineComponent, ref, watchEffect } from "vue"
 import Guides from "@scena/guides"
-import Ruler from "@scena/ruler"
+import Gesto from 'gesto'
 import Moveable from "../src/Moveable.vue"
 import { useStoreElsInEditor } from './storeElsInEditor'
 import TransparentBackground from './components/TransparentBackground'
@@ -35,6 +39,7 @@ import CardElGenerator from './components/CardElGenerator/index.vue'
 import CardMetaElList from './components/CardMetaElList/index.vue'
 import ActiveConfigJSONEditor from './components/ActiveConfigJSONEditor/index.vue'
 import EditorMoveable from './components/EditorMoveable'
+import ElementControlPane from './components/ElementControlPane'
 
 export default defineComponent({
     components: {
@@ -43,7 +48,8 @@ export default defineComponent({
         TransparentBackground,
         CardElGenerator,
         CardMetaElList,
-        ActiveConfigJSONEditor
+        ActiveConfigJSONEditor,
+        ElementControlPane
     },
     setup() {
         const storeElsInEditor = useStoreElsInEditor()
@@ -54,33 +60,70 @@ export default defineComponent({
             }
         }
 
-        watchEffect(() => {
-            if(rootContainerRef.value) {
-                const guidesV = new Guides(rootContainerRef.value, {
-                    type: "vertical",
-                }).on("changeGuides", e => {
-                    console.log(e.guides);
-                });
+        const verticalRulerRef = ref()
+        const setVerticalRulerRef = (e) => {
+            verticalRulerRef.value = e
+        }
 
-                const guidesH = new Guides(rootContainerRef.value, {
+        const horizontalRulerRef = ref()
+        const setHorizontalRulerRef = (e) => {
+            horizontalRulerRef.value = e
+        }
+
+        const rulerBoxRef = ref()
+        const setRulerBoxRef = (e) => {
+            rulerBoxRef.value = e
+        }
+
+        const renderAreaRef = ref()
+        const setRenderAreaRef = (e) => {
+            renderAreaRef.value = e
+        }
+
+        watchEffect(() => {
+            if(horizontalRulerRef.value && verticalRulerRef.value && rulerBoxRef.value && renderAreaRef.value) {
+                const guides1 = new Guides(horizontalRulerRef.value, {
                     type: "horizontal",
-                }).on("changeGuides", e => {
-                    console.log(e.guides);
+                    displayDragPos: true,
+                    rulerStyle: { left: "30px", width: "calc(100% - 30px)", height: "100%" },
+                    useResizeObserver: true,
+                });
+                const guides2 = new Guides(verticalRulerRef.value, {
+                    type: "vertical",
+                    displayDragPos: true,
+                    rulerStyle: { top: "30px", height: "calc(100% - 30px)", width: "100%" },
+                    useResizeObserver: true,
                 });
 
                 let scrollX = 0;
                 let scrollY = 0;
-                window.addEventListener("resize", () => {
-                    guidesV.resize();
-                    guidesH.resize();
+
+                const box = rulerBoxRef.value;
+
+                new Gesto(renderAreaRef.value).on("dragStart", e => {
+                    console.log(e, e.inputEvent.target === box)
+                    if (e.inputEvent.target === box || e.inputEvent.target.nodeName === "A") {
+                        return false;
+                    }
+                }).on("drag", e => {
+                    if([...e.inputEvent.target.classList].includes('card-el')) {
+                        return
+                    }
+                    scrollX -= e.deltaX;
+                    scrollY -= e.deltaY;
+
+                    guides1.scroll(scrollX);
+                    guides1.scrollGuides(scrollY);
+                    guides2.scroll(scrollY);
+                    guides2.scrollGuides(scrollX);
                 });
-
-                window.addEventListener("wheel", e => {
-                    scrollX += e.deltaX;
-                    scrollY += e.deltaY;
-
-                    guidesV.scrollGuides(scrollY);
-                    guidesH.scrollGuides(scrollX);
+                box.addEventListener("click", () => {
+                    scrollX = 0;
+                    scrollY = 0;
+                    guides1.scroll(0);
+                    guides1.scrollGuides(0);
+                    guides2.scroll(0);
+                    guides2.scrollGuides(0);
                 });
             }
         })
@@ -94,7 +137,11 @@ export default defineComponent({
             setRootContainer,
             rootContainerRef,
             handlePanelClick: storeElsInEditor.setUserFocusAt,
-            storeElsInEditor
+            storeElsInEditor,
+            setHorizontalRulerRef,
+            setVerticalRulerRef,
+            setRulerBoxRef,
+            setRenderAreaRef
         };
     }
 });
@@ -104,55 +151,39 @@ export default defineComponent({
 .editor-page-box {
     display: grid;
     grid-template-columns: 200px 1fr 400px;
+    column-gap: 20px;
 }
 
 .render-area {
     position: relative;
+    height: 90vh;
+    background: #f5f5f5;
+    touch-action: manipulation;
+}
+
+.ruler-box {
+    height: 30px;
+    width: 30px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: #444;
+    box-sizing: border-box;
+    z-index: 21;
+}
+
+.ruler {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.ruler.vertical {
+    width: 30px;
     height: 100%;
 }
-
-.target {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 150px;
-    left: 100px;
-    line-height: 100px;
-    text-align: center;
-    background: rgb(43, 74, 253);
-    color: #333;
-    font-weight: bold;
-    border: 1px solid #333;
-    box-sizing: border-box;
+.ruler.horizontal {
+    width: 100%;
+    height: 30px;
 }
 
-.target1 {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 150px;
-    left: 100px;
-    line-height: 100px;
-    text-align: center;
-    background: #ee8;
-    color: #333;
-    font-weight: bold;
-    border: 1px solid #333;
-    box-sizing: border-box;
-}
-
-.target2 {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 150px;
-    left: 100px;
-    line-height: 100px;
-    text-align: center;
-    background: #ee8;
-    color: #333;
-    font-weight: bold;
-    border: 1px solid #333;
-    box-sizing: border-box;
-}
 </style>

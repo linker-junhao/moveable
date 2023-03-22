@@ -52,9 +52,11 @@
         "@scena/guides": "^0.24.0",
         "@scena/ruler": "^0.16.0",
         "framework-utils": "^1.1.0",
+        "gesto": "^1.15.1",
         "jsoneditor": "^9.10.0",
         "moveable": "~0.44.2",
         "pinia": "^2.0.33",
+        "pretty-print-json": "^1.4.1",
         "uuid": "^9.0.0"
     },
     "files": [
