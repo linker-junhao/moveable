@@ -16,13 +16,13 @@
                 </div>
             </div>
             <!-- 组件控制栏 -->
-            <div>
+            <div class="right-panel">
                 <div @click.capture="handlePanelClick('ConfigPanel')">
                     <!-- <ActiveConfigJSONEditor /> -->
                     <ElementControlPane />
                 </div>
-                <div>
-                    {{ storeElsInEditor.convertedOldFormatConfigData }}
+                <div class="result-json">
+                    <JsonBox :json="storeElsInEditor.convertedOldFormatConfigData" />
                 </div>
             </div>
         </div>
@@ -40,6 +40,7 @@ import CardMetaElList from './components/CardMetaElList/index.vue'
 import ActiveConfigJSONEditor from './components/ActiveConfigJSONEditor/index.vue'
 import EditorMoveable from './components/EditorMoveable'
 import ElementControlPane from './components/ElementControlPane'
+import JsonBox from './components/JsonBox'
 
 export default defineComponent({
     components: {
@@ -49,7 +50,8 @@ export default defineComponent({
         CardElGenerator,
         CardMetaElList,
         ActiveConfigJSONEditor,
-        ElementControlPane
+        ElementControlPane,
+        JsonBox
     },
     setup() {
         const storeElsInEditor = useStoreElsInEditor()
@@ -186,4 +188,14 @@ export default defineComponent({
     height: 30px;
 }
 
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.result-json {
+    overflow: auto;
+    margin-top: 30px;
+}
 </style>
