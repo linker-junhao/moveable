@@ -40,7 +40,6 @@ const throttleRotate = 0;
 const rotationPosition: RotationPosition = "top";
 const moveableRef = ref(null);
 const setMoveableRef = (el) => {
-  console.log(el)
   moveableRef.value = el
   storeElsInEditor.setMoveableRef(el)
 }
@@ -79,7 +78,6 @@ const onRotate = e => {
 }
 
 const elementGuidelines = computed(() => {
-  console.log('container', storeElsInEditor.activeElContainerRef)
   return Array.from(storeElsInEditor.activeElContainerRef?.querySelectorAll('.card-el') || [])
 })
 

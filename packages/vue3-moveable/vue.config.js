@@ -7,7 +7,7 @@ module.exports = {
   // configureWebpack为vue.config.js里的webpack配置
   configureWebpack: {
     devServer: {
-      port: 8888,
+      port: 8080,
       open: true
     },
     // plugins配置里加下面的代码

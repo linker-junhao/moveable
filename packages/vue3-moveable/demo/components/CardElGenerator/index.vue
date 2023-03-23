@@ -53,7 +53,6 @@ const activeElRef = ref(null)
 
 
 const setActiveElRef = (e, activeConfigData) => {
-  console.log(props.container)
   activeElRef.value = e?.target
   storeElsInEditor.setActiveElRef(e?.target)
   storeElsInEditor.setActiveElContainerRef(props.container)
