@@ -1,5 +1,5 @@
 <template>
-  <div class="text-control-panel" v-if="dataActiveComponentConfig">
+  <div v-if="dataActiveComponentConfig">
     <el-form>
       <el-form-item label="值" label-width="100px" label-align="right">
         <el-input type="textarea" v-model="dataActiveComponentConfig['value']" />
@@ -85,16 +85,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.text-control-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.text-control-panel__input {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-</style>

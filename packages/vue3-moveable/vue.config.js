@@ -4,20 +4,17 @@ const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 module.exports = {
-  // configureWebpack为vue.config.js里的webpack配置
-  configureWebpack: {
-    devServer: {
-      port: 8080,
-      open: true
-    },
-    // plugins配置里加下面的代码
-    plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()]
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()]
-      })
-    ]
+  chainWebpack: config => {
+    config.devServer
+      .port(8080)
+      .open(true)
+    try {
+      config.plugins('AutoImport')
+        .use(AutoImport, [{ resolvers: [ElementPlusResolver()] }])
+      config.plugins('Components')
+        .use(Components, [{ resolvers: [ElementPlusResolver()] }])
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

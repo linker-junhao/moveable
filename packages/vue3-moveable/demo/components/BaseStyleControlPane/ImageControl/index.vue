@@ -1,5 +1,5 @@
 <template>
-  <el-form class="avatar-control-panel" v-if="dataActiveComponentConfig">
+  <el-form  :model="dataActiveComponentConfig" class="avatar-control-panel" v-if="dataActiveComponentConfig">
     <el-form-item label="图片地址" label-width="100px">
       <el-input v-model="dataActiveComponentConfig['value']" />
     </el-form-item>

@@ -103,7 +103,6 @@ export default defineComponent({
                 const box = rulerBoxRef.value;
 
                 new Gesto(renderAreaRef.value).on("dragStart", e => {
-                    console.log(e, e.inputEvent.target === box)
                     if (e.inputEvent.target === box || e.inputEvent.target.nodeName === "A") {
                         return false;
                     }
@@ -131,7 +130,6 @@ export default defineComponent({
         })
 
         const dataConfig = computed(() => {
-            console.log(storeElsInEditor.dataConfig)
             return storeElsInEditor.dataConfig
         })
         return {
