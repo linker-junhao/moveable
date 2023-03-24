@@ -1,12 +1,12 @@
 <template>
   <div>
-    <component :key="activeComponent" :is="activeComponent"></component>
+    <component :is="activeComponent"></component>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useStoreElsInEditor } from '../../storeElsInEditor';
+import { useStoreElsInEditor } from '../../store/storeElsInEditor';
 import Avatar from '../CardMetaEls/Avatar/ControlPanelView/index.vue';
 import Company from '../CardMetaEls/Company/ControlPanelView/index.vue';
 import Logo from '../CardMetaEls/Logo/ControlPanelView/index.vue';

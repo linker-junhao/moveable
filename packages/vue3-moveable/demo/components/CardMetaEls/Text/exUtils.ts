@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ComponentConfig } from "../../../storeElsInEditor"
+import { ComponentConfig } from "../../../store/storeElsInEditor"
 
 const genInitialConfig: () => ComponentConfig = () => {
   return {

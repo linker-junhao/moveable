@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid';
-import { ComponentConfig, useStoreElsInEditor } from '../../storeElsInEditor'
+import { ComponentConfig, useStoreElsInEditor } from '../../store/storeElsInEditor'
 import CardElGenerator from './index.vue'
 import { ref } from 'vue';
 import GroupWrapper from '../CardMetaEls/GroupWrapper/EditorView/index.vue'
@@ -29,6 +29,8 @@ import Title from '../CardMetaEls/Title/EditorView/index.vue'
 import Avatar from '../CardMetaEls/Avatar/EditorView/index.vue'
 import Company from '../CardMetaEls/Company/EditorView/index.vue'
 import Logo from '../CardMetaEls/Logo/EditorView/index.vue'
+import useUserFocusAt from '../../store/userFocusAt';
+import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
 
 const components: Record<string, any> = {
   GroupWrapper,
@@ -47,21 +49,23 @@ const props = defineProps<{
   container?: Container
 }>()
 
+const userFocusAt = useUserFocusAt()
 const storeElsInEditor = useStoreElsInEditor()
+const moveableStuffRefs = useMoveableStuffRefs()
 const activeElRef = ref(null)
 
 
 
 const setActiveElRef = (e, activeConfigData) => {
   activeElRef.value = e?.target
-  storeElsInEditor.setActiveElRef(e?.target)
-  storeElsInEditor.setActiveElContainerRef(props.container)
+  moveableStuffRefs.setActiveElRef(e?.target)
+  moveableStuffRefs.setActiveElContainerRef(props.container)
   storeElsInEditor.setActiveComponentConfig(activeConfigData)
 }
 
 window.addEventListener('keydown', (e) => {
   const activeConfig = storeElsInEditor.dataActiveComponentConfig as any
-  if (storeElsInEditor.userFocusAt === 'MoveableView' && e.keyCode === 8 && Array.isArray(props.componentConfig) && props.componentConfig.includes(activeConfig)) {
+  if (userFocusAt.userFocusAt === 'MoveableView' && e.keyCode === 8 && Array.isArray(props.componentConfig) && props.componentConfig.includes(activeConfig)) {
     const dataIdx = props.componentConfig.findIndex((d) => d === activeConfig)
     props.componentConfig.splice(dataIdx, 1)
     setActiveElRef(null, null)

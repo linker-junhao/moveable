@@ -5,9 +5,13 @@
 <script setup lang="ts">
 import { ref, watchEffect, nextTick } from 'vue';
 import JSONEditor from 'jsoneditor/dist/jsoneditor'
-import { useStoreElsInEditor } from '../../storeElsInEditor';
+import { useStoreElsInEditor } from '../../store/storeElsInEditor';
+import useUserFocusAt from '../../store/userFocusAt';
+import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
 
 const storeElsInEditor = useStoreElsInEditor()
+const userFocusAt = useUserFocusAt()
+const moveableStuffRefs = useMoveableStuffRefs()
 
 const jsonEditorElRef = ref<HTMLElement>()
 const setJSONEditorElRef = (e) => {
@@ -34,7 +38,7 @@ const saveJSONToStore = (config) => {
     activeConfigData.children = config.children
   }
   nextTick(() => {
-    storeElsInEditor.moveableRef?.updateTarget()
+    moveableStuffRefs.moveableRef?.updateTarget()
   })
 }
 
@@ -99,7 +103,7 @@ watchEffect(() => {
     jsonEditorInstance.set(activeConfigData)
     jsonEditorInstance.expandAll()
   } else {
-    if(storeElsInEditor.userFocusAt !== 'ConfigPanel') {
+    if(userFocusAt.userFocusAt !== 'ConfigPanel') {
       jsonEditorInstance.update(activeConfigData)
     }
   }

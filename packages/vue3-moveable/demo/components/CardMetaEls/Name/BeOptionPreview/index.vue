@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ComponentConfig } from '../../../../storeElsInEditor';
+import { ComponentConfig } from '../../../../store/storeElsInEditor';
 import { genInitialConfig } from '../exUtils';
 
 const emit = defineEmits<{

@@ -9,7 +9,10 @@
   "config_field_name": "background",
   "name": "GroupWrapper",
   "dataType": "branch",
-  "value": "url('https://ss-static.intsig.net/10000_7995f223aaf104c2856cfb109bc5757a.png')",
+  "editBehavior": {
+    "locked": true
+  },
+  "value": "url('https://img0.baidu.com/it/u=3032776730,2178451350&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800')",
   "children": [
     {
       "name": "GroupWrapper",
@@ -95,7 +98,7 @@
         "object-fit": "cover"
       },
       "uuid": "6dcb430d-4348-4340-9b55-66296656ca57",
-      "value": "https://ccpre1.intsig.net/sync/download_multimedia?url=1222931086_8f87f59ad372d4d58b0a52ddcd9fbb4b"
+      "value": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF"
     },
     {
       "name": "Logo",
@@ -111,7 +114,7 @@
         "transform": " translate(281px, 99px) "
       },
       "uuid": "587038f5-6b36-4607-ae4e-05a9d7c51e73",
-      "value": "https://www.intsig.com/static/images/common_new/index_kehu_09.png"
+      "value": "https://www.baidu.com/img/flexible/logo/pc/result@2.png"
     }
   ]
 }

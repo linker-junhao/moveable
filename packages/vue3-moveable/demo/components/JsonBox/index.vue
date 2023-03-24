@@ -26,7 +26,7 @@ export default defineComponent({
       (newVal) => {
         prettyJson.value = prettyPrintJson.toHtml(newVal || {});
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     );
 
     const copyJson = () => {

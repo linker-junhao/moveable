@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useStoreElsInEditor } from '../../../../storeElsInEditor';
+import { useStoreElsInEditor } from '../../../../store/storeElsInEditor';
 
 const storeElsInEditor = useStoreElsInEditor()
 const { dataActiveComponentConfig } = storeElsInEditor

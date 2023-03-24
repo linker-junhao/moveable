@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { LeafComponentConfig } from '../../../../storeElsInEditor';
+import { LeafComponentConfig } from '../../../../store/storeElsInEditor';
 
 const props = defineProps<{
   componentConfig: LeafComponentConfig

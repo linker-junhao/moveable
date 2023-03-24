@@ -65,7 +65,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useStoreElsInEditor } from '../../../storeElsInEditor';
+import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
 export default defineComponent({
   name: 'TextControl',

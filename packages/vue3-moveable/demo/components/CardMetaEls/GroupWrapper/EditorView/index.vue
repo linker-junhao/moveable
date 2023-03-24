@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { BranchComponentConfig } from '../../../../storeElsInEditor';
+import { BranchComponentConfig } from '../../../../store/storeElsInEditor';
 
 const props = defineProps<{
   componentConfig: BranchComponentConfig

@@ -1,6 +1,6 @@
-import { BranchComponentConfig } from './../../../storeElsInEditor';
+import { BranchComponentConfig } from '../../../store/storeElsInEditor';
 import { v4 as uuidv4 } from 'uuid';
-import { ComponentConfig } from "../../../storeElsInEditor"
+import { ComponentConfig } from "../../../store/storeElsInEditor"
 
 interface GroupWrapperType extends BranchComponentConfig { editBehavior: { locked: boolean } }
 

@@ -1,6 +1,6 @@
 <template>
-  <Moveable :rootContainer="storeElsInEditor.activeElContainerRef" :ref="setMoveableRef"
-    :target="storeElsInEditor.activeElRef" :draggable="draggable" :throttleDrag="throttleDrag"
+  <Moveable :rootContainer="moveableStuffRefs.activeElContainerRef" :ref="setMoveableRef"
+    :target="moveableStuffRefs.activeElRef" :draggable="draggable" :throttleDrag="throttleDrag"
     :edgeDraggable="edgeDraggable" :startDragRotate="startDragRotate" :throttleDragRotate="throttleDragRotate"
     :resizable="resizable" :keepRatio="keepRatio" :throttleResize="throttleResize" :renderDirections="renderDirections"
     :rotatable="rotatable" :throttleRotate="throttleRotate" :rotationPosition="rotationPosition" @drag="onDrag"
@@ -14,9 +14,11 @@
 import Moveable from '../../../src/Moveable.vue'
 import { RotationPosition } from 'moveable';
 import { computed, ref } from 'vue';
-import { useStoreElsInEditor } from '../../storeElsInEditor';
+import { useStoreElsInEditor } from '../../store/storeElsInEditor';
+import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
 
 const storeElsInEditor = useStoreElsInEditor()
+const moveableStuffRefs = useMoveableStuffRefs()
 
 const snappable = true;
 const isDisplaySnapDigit = true;
@@ -41,7 +43,7 @@ const rotationPosition: RotationPosition = "top";
 const moveableRef = ref(null);
 const setMoveableRef = (el) => {
   moveableRef.value = el
-  storeElsInEditor.setMoveableRef(el)
+  moveableStuffRefs.setMoveableRef(el)
 }
 const isCurElLocked = computed(() => {
   return storeElsInEditor.dataActiveComponentConfig?.editBehavior?.locked === true
@@ -78,7 +80,7 @@ const onRotate = e => {
 }
 
 const elementGuidelines = computed(() => {
-  return Array.from(storeElsInEditor.activeElContainerRef?.querySelectorAll('.card-el') || [])
+  return Array.from(moveableStuffRefs.activeElContainerRef?.querySelectorAll('.card-el') || [])
 })
 
 </script>

@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useStoreElsInEditor } from '../../../storeElsInEditor';
+import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
 export default defineComponent({
   name: 'ImageControl',

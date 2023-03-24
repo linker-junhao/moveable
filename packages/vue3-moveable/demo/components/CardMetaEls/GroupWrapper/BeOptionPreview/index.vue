@@ -1,9 +1,9 @@
 <template>
-  <div @click="handleClick">GroupWrapper</div>
+  <div @click="handleClick">布局容器</div>
 </template>
 
 <script setup lang="ts">
-import { ComponentConfig } from '../../../../storeElsInEditor';
+import { ComponentConfig } from '../../../../store/storeElsInEditor';
 import { genInitialConfig } from '../exUtils';
 
 const emit = defineEmits<{

@@ -1,5 +1,8 @@
 <template>
     <div class="root">
+        <div>
+            <MenuBar />
+        </div>
         <div class="editor-page-box">
             <!-- 组件选择栏 -->
             <div @click.capture="handlePanelClick('Lib')">
@@ -22,36 +25,37 @@
                     <ElementControlPane />
                 </div>
                 <div class="result-json">
-                    <JsonBox :json="storeElsInEditor.convertedOldFormatConfigData" />
+                    <JsonBox :json="convertedOldFormatConfigData" />
                 </div>
             </div>
         </div>
     </div>
 </template>
-<script>
+<script lang="ts">
 import { computed, defineComponent, ref, watchEffect } from "vue"
 import Guides from "@scena/guides"
 import Gesto from 'gesto'
 import Moveable from "../src/Moveable.vue"
-import { useStoreElsInEditor } from './storeElsInEditor'
-import TransparentBackground from './components/TransparentBackground'
+import { useStoreElsInEditor } from './store/storeElsInEditor'
+import useUserFocusAt from './store/userFocusAt'
 import CardElGenerator from './components/CardElGenerator/index.vue'
 import CardMetaElList from './components/CardMetaElList/index.vue'
 import ActiveConfigJSONEditor from './components/ActiveConfigJSONEditor/index.vue'
-import EditorMoveable from './components/EditorMoveable'
-import ElementControlPane from './components/ElementControlPane'
-import JsonBox from './components/JsonBox'
+import EditorMoveable from './components/EditorMoveable/index.vue'
+import ElementControlPane from './components/ElementControlPane/index.vue'
+import JsonBox from './components/JsonBox/index.vue'
+import MenuBar from './components/MenuBar/index.vue'
 
 export default defineComponent({
     components: {
         EditorMoveable,
         Moveable,
-        TransparentBackground,
         CardElGenerator,
         CardMetaElList,
         ActiveConfigJSONEditor,
         ElementControlPane,
-        JsonBox
+        JsonBox,
+        MenuBar
     },
     setup() {
         const storeElsInEditor = useStoreElsInEditor()
@@ -132,16 +136,39 @@ export default defineComponent({
         const dataConfig = computed(() => {
             return storeElsInEditor.dataConfig
         })
+
+        const convertedOldFormatConfigData = computed(() => {
+            const convertItem = (item, result) => {
+                if (item?.config_field_name) {
+                    result[item.config_field_name] = {
+                    isShow: true,
+                    value: item.value,
+                    style: item.style
+                    }
+                }
+                item.children?.forEach(item => {
+                    convertItem(item, result)
+                });
+            }
+            const ret = {}
+            const { dataConfig } = storeElsInEditor
+            if (dataConfig?.length) {
+                convertItem(dataConfig[0], ret)
+            }
+            return ret
+        })
+
         return {
             dataConfig,
             setRootContainer,
             rootContainerRef,
-            handlePanelClick: storeElsInEditor.setUserFocusAt,
+            handlePanelClick: useUserFocusAt().setUserFocusAt,
             storeElsInEditor,
             setHorizontalRulerRef,
             setVerticalRulerRef,
             setRulerBoxRef,
-            setRenderAreaRef
+            setRenderAreaRef,
+            convertedOldFormatConfigData
         };
     }
 });
@@ -190,10 +217,10 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     height: 90vh;
+    row-gap: 16px;
 }
 
 .result-json {
     overflow: auto;
-    margin-top: 30px;
 }
 </style>
