@@ -1,7 +1,7 @@
 <template>
-    
   <div class="menu-bar">
     <el-button @click="openFile">Open File</el-button>
+    <el-button @click="saveFile">Save File</el-button>
     <input type="file" :ref="setFileInput" style="display:none" @change="handleFileUpload"/>
   </div>
 </template>
@@ -32,16 +32,28 @@ export default defineComponent({
       const reader = new FileReader();
       reader.onload = (e) => {
         const contents = JSON.parse(e.target?.result as string);
-        storeElsInEditor.setDataConfig(reactive([contents]));
+        storeElsInEditor.setDataConfig(reactive(contents));
         moveableStuffRefs.setActiveElRef(null)
       };
       reader.readAsText(file as Blob);
     };
 
+    const saveFile = () => {
+      const data = JSON.stringify(storeElsInEditor.dataConfig);
+      const blob = new Blob([data], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'data.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
     return {
       openFile,
       handleFileUpload,
-      setFileInput
+      setFileInput,
+      saveFile
     };
   },
 });

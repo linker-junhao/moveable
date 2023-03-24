@@ -1,4 +1,6 @@
 <template>
+  
+  
   <div class="history">
     <div class="history-header">
       <span class="history-title">History</span>
@@ -15,12 +17,12 @@
       <div class="history-list">
         <div
           class="history-item"
-          v-for="(item, index) in history"
+          v-for="(item, index) in history.operations"
           :key="index"
-          :class="{ 'history-item-active': index === currentIndex }"
+          :class="{ 'history-item-active': index === history.index }"
           @click="goTo(index)"
         >
-          {{ item }}
+          {{ new Date(item.timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '') }}
         </div>
       </div>
     </div>
@@ -28,43 +30,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, computed, onMounted, reactive } from 'vue';
+import { useHistoryStore } from '../../store/history'
+import { useStoreElsInEditor } from '../../store/storeElsInEditor';
+
 
 export default defineComponent({
   name: 'History',
-  props: {
-    history: {
-      type: Array,
-      default: () => [],
-    },
-    currentIndex: {
-      type: Number,
-      default: -1,
-    },
-  },
   setup(props, { emit }) {
-    const canUndo = computed(() => props.currentIndex > -1);
+    const storeElsInEditor = useStoreElsInEditor()
+    const history = useHistoryStore()
+    const canUndo = computed(() => history.index > -1);
     const canRedo = computed(
-      () => props.currentIndex < props.history.length - 1
+      () => history.index < history.operations.length - 1
     );
 
     function undo() {
       if (canUndo.value) {
+        history.undo();
         emit('undo');
       }
     }
 
     function redo() {
       if (canRedo.value) {
+        history.redo();
         emit('redo');
       }
     }
 
     function goTo(index: number) {
-      if (index !== props.currentIndex) {
+      if (index !== history.index) {
+        history.goto(index);
         emit('goTo', index);
       }
     }
+
+    function setRecordToHistoryIndex() {
+      storeElsInEditor.setDataConfig(reactive(history.operations[history.index]))
+    }
+
+    onMounted(() => {
+      document.addEventListener('keydown', e => {
+        if (e.ctrlKey && e.key === 's') {
+          e.preventDefault();
+          history.addOperation(JSON.stringify(storeElsInEditor.dataConfig))
+        }
+      });
+    })
 
     return {
       canUndo,
@@ -72,6 +85,7 @@ export default defineComponent({
       undo,
       redo,
       goTo,
+      history
     };
   },
 });
