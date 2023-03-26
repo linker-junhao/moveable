@@ -8,10 +8,6 @@
     <div>
       <GroupWrapper @click="addItem" />
       <Text @click="addItem" />
-      <Name @click="addItem" />
-      <Title @click="addItem" />
-      <Avatar @click="addItem" />
-      <Company @click="addItem" />
     </div>
   </div>
 </template>
@@ -28,7 +24,7 @@ import { reactive } from 'vue'
 import verticalStyleTemplate from '../../presetCardTemplate/verticalStyleTemplate.json'
 import { useMoveableStuffRefs } from '../../store/moveableStuffRefs'
 
-const changeCardType = (type: 'vertical'|'horizontal') => {
+const changeCardType = (type: 'vertical' | 'horizontal') => {
   const storeElsInEditor = useStoreElsInEditor()
   const moveableStuffRefs = useMoveableStuffRefs()
   if (type === 'horizontal') {

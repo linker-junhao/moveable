@@ -1,8 +1,14 @@
 <template>
   <div class="menu-bar">
+    <el-button @click="clearCanvas">清空</el-button>
     <el-button @click="openFile">Open File</el-button>
     <el-button @click="saveFile">Save File</el-button>
-    <input type="file" :ref="setFileInput" style="display:none" @change="handleFileUpload"/>
+    <input
+      type="file"
+      :ref="setFileInput"
+      style="display:none"
+      @change="handleFileUpload"
+    />
   </div>
 </template>
 
@@ -11,6 +17,7 @@ import { defineComponent, ref, reactive } from 'vue';
 import { ElButton } from 'element-plus';
 import { useStoreElsInEditor } from '../../store/storeElsInEditor';
 import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
+import { ChangeEventHandler } from 'react';
 
 export default defineComponent({
   name: 'MenuBar',
@@ -27,8 +34,8 @@ export default defineComponent({
       fileInput.value?.click();
     };
 
-    const handleFileUpload = (event: Event) => {
-      const file = (event.target as HTMLInputElement).files?.[0];
+    const handleFileUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
+      const file = event.target.files?.[0];
       const reader = new FileReader();
       reader.onload = (e) => {
         const contents = JSON.parse(e.target?.result as string);
@@ -49,11 +56,17 @@ export default defineComponent({
       URL.revokeObjectURL(url);
     };
 
+    const clearCanvas = () => {
+      storeElsInEditor.setDataConfig([])
+      moveableStuffRefs.setActiveElRef(null)
+    }
+
     return {
       openFile,
       handleFileUpload,
       setFileInput,
-      saveFile
+      saveFile,
+      clearCanvas
     };
   },
 });
@@ -62,7 +75,7 @@ export default defineComponent({
 <style scoped>
 .menu-bar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 10px;
 }
 </style>

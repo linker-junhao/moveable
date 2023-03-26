@@ -32,13 +32,25 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
     dataConfig.value = config
   }
 
-  // 添加一个组件
-  const addComponent = (componentConfig) => {
+  const addComponentToRoot = (componentConfig) => {
+    dataConfig.value.push(componentConfig)
+  }
+
+  const addComponentToActiveConfigData = (componentConfig) => {
     const activeConfigData = dataActiveComponentConfig.value
     if (activeConfigData?.dataType === 'branch') {
       activeConfigData.children.push(componentConfig)
     } else if(dataConfig[0].dataType === 'branch') {
       dataConfig[0].children.push(componentConfig)
+    }
+  }
+
+  // 添加一个组件
+  const addComponent = (componentConfig) => {
+    if (!dataConfig.value.length) {
+      addComponentToRoot(componentConfig)
+    } else {
+      addComponentToActiveConfigData(componentConfig)
     }
     return dataConfig
   }

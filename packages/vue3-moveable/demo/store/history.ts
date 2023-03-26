@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 
 
+const MAX_HISTORY_LENGTH = 10;
+
 const useHistoryStore = defineStore({
   id: 'history',
   state: () => ({
@@ -13,6 +15,10 @@ const useHistoryStore = defineStore({
       this.operations.splice(this.index + 1);
       this.operations.push({operation, timestamp});
       this.index = this.operations.length - 1;
+      if (this.operations.length > MAX_HISTORY_LENGTH) {
+        this.operations.shift();
+        this.index--;
+      }
     },
     undo() {
       if (this.index > -1) {

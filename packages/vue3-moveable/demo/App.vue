@@ -13,7 +13,8 @@
             <div @click.capture="handlePanelClick('MoveableView')" :ref="setRenderAreaRef" class="render-area">
                 <RulerAndGuide :renderAreaRef="renderAreaRef" />
                 <div :ref="setRootContainer" class="place-ground" style="margin: 30px;z-index: 1; position: relative;">
-                    <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef" :componentConfig="dataConfig" />
+                    <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef"
+                        :componentConfig="dataConfig" />
                     <EditorMoveable />
                 </div>
             </div>
@@ -62,7 +63,7 @@ export default defineComponent({
         const storeElsInEditor = useStoreElsInEditor()
         const rootContainerRef = ref()
         const setRootContainer = (el) => {
-            if(rootContainerRef.value !== el) {
+            if (rootContainerRef.value !== el) {
                 rootContainerRef.value = el
             }
         }
@@ -80,9 +81,9 @@ export default defineComponent({
             const convertItem = (item, result) => {
                 if (item?.config_field_name) {
                     result[item.config_field_name] = {
-                    isShow: true,
-                    value: item.value,
-                    style: item.style
+                        isShow: true,
+                        value: item.value,
+                        style: item.style
                     }
                 }
                 item.children?.forEach(item => {
