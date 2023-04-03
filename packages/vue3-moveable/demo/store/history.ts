@@ -30,7 +30,7 @@ const useHistoryStore = defineStore({
         this.index++;
       }
     },
-    goto(idx) {
+    goto(idx: number) {
       this.index = idx
     },
     clearOperations() {

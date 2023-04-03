@@ -1,6 +1,6 @@
 <template>
   <div class="card-el" :style="props.componentConfig.style">
-    {{ props.componentConfig.value }}
+    <span class=""></span>{{ props.componentConfig.value }}
   </div>
 </template>
 

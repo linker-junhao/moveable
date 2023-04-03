@@ -73,7 +73,7 @@ export default defineComponent({
     const storeElsInEditor = useStoreElsInEditor();
     const { dataActiveComponentConfig } = storeElsInEditor;
 
-    const fontSizeChanged = (val) => {
+    const fontSizeChanged = (val: number) => {
       dataActiveComponentConfig!.style['font-size'] = val+'px'
     }
 

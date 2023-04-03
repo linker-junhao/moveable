@@ -34,7 +34,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watchEffect } from "vue"
 import Moveable from "../src/Moveable.vue"
-import { useStoreElsInEditor } from './store/storeElsInEditor'
+import { ComponentConfig, useStoreElsInEditor } from './store/storeElsInEditor'
 import useUserFocusAt from './store/userFocusAt'
 import CardElGenerator from './components/CardElGenerator/index.vue'
 import CardMetaElList from './components/CardMetaElList/index.vue'
@@ -62,14 +62,14 @@ export default defineComponent({
     setup() {
         const storeElsInEditor = useStoreElsInEditor()
         const rootContainerRef = ref()
-        const setRootContainer = (el) => {
+        const setRootContainer = (el: HTMLElement) => {
             if (rootContainerRef.value !== el) {
                 rootContainerRef.value = el
             }
         }
 
         const renderAreaRef = ref()
-        const setRenderAreaRef = (e) => {
+        const setRenderAreaRef = (e: HTMLElement) => {
             renderAreaRef.value = e
         }
 
@@ -78,7 +78,8 @@ export default defineComponent({
         })
 
         const convertedOldFormatConfigData = computed(() => {
-            const convertItem = (item, result) => {
+            type Item = ComponentConfig & { config_field_name?: string }
+            const convertItem = (item: Item, result: any) => {
                 if (item?.config_field_name) {
                     result[item.config_field_name] = {
                         isShow: true,
@@ -86,9 +87,11 @@ export default defineComponent({
                         style: item.style
                     }
                 }
-                item.children?.forEach(item => {
-                    convertItem(item, result)
-                });
+                if(item.dataType === 'branch') {
+                    item.children?.forEach(item => {
+                        convertItem(item, result)
+                    });
+                }
             }
             const ret = {}
             const { dataConfig } = storeElsInEditor

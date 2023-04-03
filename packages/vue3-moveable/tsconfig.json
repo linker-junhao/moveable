@@ -1,4 +1,7 @@
-{
+{  
+  "vueCompilerOptions": {
+    "target": 3,
+  },
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
@@ -13,12 +16,14 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
+      "vue",
       "element-plus/global"
     ],
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "react": ["./stub/types__react"]
     },
     "lib": [
       "esnext",
@@ -31,6 +36,9 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "demo/**/*.ts",
+    "demo/**/*.tsx",
+    "demo/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],

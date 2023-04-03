@@ -27,26 +27,26 @@ const useStoreElsInEditor = defineStore('ElsInEditor', () => {
   }
 
   const dataConfig = ref(reactive<ComponentConfig[]>([]))
-  const setDataConfig = (config) => {
+  const setDataConfig = (config: ComponentConfig[]) => {
     setActiveComponentConfig(null)
     dataConfig.value = config
   }
 
-  const addComponentToRoot = (componentConfig) => {
+  const addComponentToRoot = (componentConfig: ComponentConfig) => {
     dataConfig.value.push(componentConfig)
   }
 
-  const addComponentToActiveConfigData = (componentConfig) => {
+  const addComponentToActiveConfigData = (componentConfig: ComponentConfig) => {
     const activeConfigData = dataActiveComponentConfig.value
     if (activeConfigData?.dataType === 'branch') {
       activeConfigData.children.push(componentConfig)
-    } else if(dataConfig[0].dataType === 'branch') {
-      dataConfig[0].children.push(componentConfig)
+    } else if(dataConfig.value[0].dataType === 'branch') {
+      dataConfig.value[0].children.push(componentConfig)
     }
   }
 
   // 添加一个组件
-  const addComponent = (componentConfig) => {
+  const addComponent = (componentConfig: ComponentConfig) => {
     if (!dataConfig.value.length) {
       addComponentToRoot(componentConfig)
     } else {

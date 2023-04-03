@@ -13,11 +13,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue';
+import { defineComponent, ref, reactive, VNodeRef } from 'vue';
 import { ElButton } from 'element-plus';
 import { useStoreElsInEditor } from '../../store/storeElsInEditor';
 import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
-import { ChangeEventHandler } from 'react';
 
 export default defineComponent({
   name: 'MenuBar',
@@ -27,15 +26,16 @@ export default defineComponent({
   setup() {
     const storeElsInEditor = useStoreElsInEditor()
     const moveableStuffRefs = useMoveableStuffRefs()
-    const fileInput = ref<HTMLInputElement | null>(null)
-    const setFileInput = (e) => fileInput.value = e
+    const fileInput = ref<any>()
+    const setFileInput: VNodeRef = (e) => fileInput.value = e
 
     const openFile = () => {
       fileInput.value?.click();
     };
 
-    const handleFileUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
-      const file = event.target.files?.[0];
+    const handleFileUpload = (event: Event) => {
+      const target = event.target as HTMLInputElement
+      const file = target.files?.[0];
       const reader = new FileReader();
       reader.onload = (e) => {
         const contents = JSON.parse(e.target?.result as string);

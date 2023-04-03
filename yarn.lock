@@ -5744,6 +5744,11 @@
   "resolved" "https://registry.npmjs.org/@types/unist/-/unist-2.0.6.tgz"
   "version" "2.0.6"
 
+"@types/uuid@^9.0.1":
+  "integrity" "sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA=="
+  "resolved" "https://registry.npmmirror.com/@types/uuid/-/uuid-9.0.1.tgz"
+  "version" "9.0.1"
+
 "@types/wait-on@^5.2.0":
   "integrity" "sha512-2FFOKCF/YydrMUaqg+fkk49qf0e5rDgwt6aQsMzFQzbS419h2gNOXyiwp/o2yYy27bi/C1z+HgfncryjGzlvgQ=="
   "resolved" "https://registry.npmjs.org/@types/wait-on/-/wait-on-5.3.1.tgz"
@@ -6384,7 +6389,7 @@
     "@vue/reactivity" "3.2.47"
     "@vue/shared" "3.2.47"
 
-"@vue/runtime-dom@3.2.37":
+"@vue/runtime-dom@^3.2.37", "@vue/runtime-dom@3.2.37":
   "integrity" "sha512-HimKdh9BepShW6YozwRKAYjYQWg9mQn63RGEiSswMbW+ssIht1MILYlVGkAGGQbkhSh31PCdoUcfiu4apXJoPw=="
   "resolved" "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.2.37.tgz"
   "version" "3.2.37"
@@ -26368,7 +26373,7 @@
   dependencies:
     "@scena/guides" "^0.24.0"
     "@scena/ruler" "^0.16.0"
-    "element-plus" "^2.3.1"
+    "element-plus" "2.3.0"
     "framework-utils" "^1.1.0"
     "gesto" "^1.15.1"
     "jsoneditor" "^9.10.0"

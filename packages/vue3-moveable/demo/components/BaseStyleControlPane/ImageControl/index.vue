@@ -53,7 +53,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { BorderRadiusProperty } from 'csstype';
+import { defineComponent, computed, CSSProperties } from 'vue';
 import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
 export default defineComponent({
@@ -62,13 +63,16 @@ export default defineComponent({
     const storeElsInEditor = useStoreElsInEditor();
     const { dataActiveComponentConfig } = storeElsInEditor;
 
-    const onBorderRadiusChange = (type: string, val: number) => {
+    const onBorderRadiusChange = (
+      type: 'border-top-left-radius'|'border-top-right-radius'|'border-bottom-right-radius'|'border-bottom-left-radius',
+      val: number
+    ) => {
       if (dataActiveComponentConfig) {
         dataActiveComponentConfig.style[type] = `${val}%`;
       }
     };
 
-    const borderRadiusValueFormatter = (val) => {
+    const borderRadiusValueFormatter = (val: number) => {
       return parseInt(val?.toString().replace(/%$/, '') || '0')
     }
 
