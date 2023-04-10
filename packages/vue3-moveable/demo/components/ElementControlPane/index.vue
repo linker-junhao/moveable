@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="activeComponent"></component>
+    <component :key="activeComponent.uuid" :is="activeComponent.activeName"></component>
   </div>
 </template>
 
@@ -29,8 +29,10 @@ export default defineComponent({
   setup() {
     const store = useStoreElsInEditor();
     const activeComponent = computed(() => {
-      const activeName = store.dataActiveComponentConfig?.name;
-      return activeName
+      return {
+        activeName: store.dataActiveComponentConfig?.name,
+        uuid: store.dataActiveComponentConfig?.uuid
+      }
     });
     return {
       activeComponent,

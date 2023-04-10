@@ -1,5 +1,5 @@
 <template>
-  <Moveable :rootContainer="moveableStuffRefs.activeElContainerRef" :ref="setMoveableRef"
+  <Moveable :ref="setMoveableRef" :rootContainer="moveableStuffRefs.activeElContainerRef"
     :target="moveableStuffRefs.activeElRef" :draggable="draggable" :throttleDrag="throttleDrag"
     :edgeDraggable="edgeDraggable" :startDragRotate="startDragRotate" :throttleDragRotate="throttleDragRotate"
     :resizable="resizable" :keepRatio="keepRatio" :throttleResize="throttleResize" :renderDirections="renderDirections"
@@ -7,15 +7,20 @@
     @resize="onResize" @rotate="onRotate" :snappable="snappable" :isDisplaySnapDigit="isDisplaySnapDigit"
     :isDisplayInnerSnapDigit="isDisplayInnerSnapDigit" :snapDirections="snapDirections"
     :elementSnapDirections="elementSnapDirections" :snapThreshold="snapThreshold"
-    :maxSnapElementGuidelineDistance="maxSnapElementGuidelineDistance" :elementGuidelines="elementGuidelines" />
+    :maxSnapElementGuidelineDistance="maxSnapElementGuidelineDistance" :elementGuidelines="elementGuidelines"
+  />
 </template>
 
 <script setup lang="ts">
 import Moveable from '../../../src/Moveable.vue'
-import { RotationPosition } from 'moveable';
+import { BoundType, RotationPosition } from 'moveable';
 import { computed, ref } from 'vue';
 import { useStoreElsInEditor } from '../../store/storeElsInEditor';
 import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
+
+const props = defineProps<{
+  rootContainer: HTMLElement
+}>()
 
 const storeElsInEditor = useStoreElsInEditor()
 const moveableStuffRefs = useMoveableStuffRefs()
@@ -28,6 +33,7 @@ const elementSnapDirections = { "top": true, "left": true, "bottom": true, "righ
 const snapThreshold = 2;
 const maxSnapElementGuidelineDistance = Infinity;
 
+const bounds: BoundType = {"left":0,"top":0,"right":0,"bottom":0,"position":"css"}
 const draggable = true;
 const throttleDrag = 0;
 const edgeDraggable = false;

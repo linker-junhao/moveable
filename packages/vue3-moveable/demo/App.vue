@@ -15,7 +15,7 @@
                 <div :ref="setRootContainer" class="place-ground" style="margin: 30px;z-index: 1; position: relative;">
                     <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef"
                         :componentConfig="dataConfig" />
-                    <EditorMoveable />
+                    <EditorMoveable :root-container="rootContainerRef" />
                 </div>
             </div>
             <!-- 组件控制栏 -->
@@ -25,7 +25,7 @@
                     <ElementControlPane />
                 </div>
                 <div class="result-json">
-                    <JsonBox :json="convertedOldFormatConfigData" />
+                    <JsonBox :json="storeElsInEditor.dataActiveComponentConfig" />
                 </div>
             </div>
         </div>

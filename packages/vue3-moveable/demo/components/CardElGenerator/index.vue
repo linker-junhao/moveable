@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid';
 import { ComponentConfig, useStoreElsInEditor } from '../../store/storeElsInEditor'
 import CardElGenerator from './index.vue'
 import { ref } from 'vue';

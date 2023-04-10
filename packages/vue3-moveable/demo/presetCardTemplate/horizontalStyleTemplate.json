@@ -1,0 +1,211 @@
+{
+  "style": {
+    "height": "200px",
+    "width": "345px",
+    "overflow": "hidden",
+    "position": "relative",
+    "background-image": "url(\"https://ss-static.intsig.net/10000_f9d2601e41d798425847dfa5820bf015.png\")",
+    "background-position-x": "initial",
+    "background-position-y": "initial",
+    "background-repeat-x": "initial",
+    "background-repeat-y": "initial",
+    "background-attachment": "initial",
+    "background-origin": "initial",
+    "background-clip": "initial",
+    "background-color": "",
+    "border-top-left-radius": "8px",
+    "border-top-right-radius": "8px",
+    "border-bottom-right-radius": "8px",
+    "border-bottom-left-radius": "8px",
+    "background-size": "cover"
+  },
+  "uuid": "v",
+  "config_field_name": "background",
+  "name": "GroupWrapper",
+  "dataType": "branch",
+  "editBehavior": {
+    "locked": true
+  },
+  "value": "url(\"https://ss-static.intsig.net/10000_f9d2601e41d798425847dfa5820bf015.png\")",
+  "children": [
+    {
+      "name": "GroupWrapper",
+      "style": {
+        "display": "flex",
+        "row-gap": "4px",
+        "flex-direction": "column",
+        "line-height": "12px",
+        "font-size": "10px",
+        "position": "absolute",
+        "left": "20px",
+        "top": "122px",
+        "align-items": "flex-start",
+        "height": "44px",
+        "width": "157px"
+      },
+      "config_field_name": "contacts",
+      "editBehavior": {
+        "locked": false
+      },
+      "children": [
+        {
+          "dataType": "leaf",
+          "name": "Name",
+          "config_field_name": "telephone",
+          "style": {
+            "width": "140px",
+            "height": "12px",
+            "font-size": "8px",
+            "font-family": "\"OPlusSans 3.0-Regular\", \"OPlusSans 30\", \"sans-serif\"",
+            "font-weight": "400",
+            "color": "rgb(0, 0, 0)",
+            "overflow-x": "hidden",
+            "overflow-y": "hidden",
+            "text-overflow": "ellipsis",
+            "overflow-wrap": "normal",
+            "white-space": "nowrap"
+          },
+          "uuid": "f589f9ae",
+          "value": "Jessica Brown"
+        },
+        {
+          "dataType": "leaf",
+          "name": "Name",
+          "config_field_name": "email",
+          "style": {
+            "width": "140px",
+            "height": "12px",
+            "font-size": "8px",
+            "font-family": "\"OPlusSans 3.0-Regular\", \"OPlusSans 30\", \"sans-serif\"",
+            "font-weight": "400",
+            "color": "rgb(0, 0, 0)",
+            "overflow-x": "hidden",
+            "overflow-y": "hidden",
+            "text-overflow": "ellipsis",
+            "overflow-wrap": "normal",
+            "white-space": "nowrap"
+          },
+          "uuid": "f589f9ae3",
+          "value": "JessicaBrown@emai.com"
+        },
+        {
+          "dataType": "leaf",
+          "name": "Name",
+          "config_field_name": "address",
+          "style": {
+            "width": "140px",
+            "height": "12px",
+            "font-size": "8px",
+            "font-family": "\"OPlusSans 3.0-Regular\", \"OPlusSans 30\", \"sans-serif\"",
+            "font-weight": "400",
+            "color": "rgb(0, 0, 0)",
+            "overflow-x": "hidden",
+            "overflow-y": "hidden",
+            "text-overflow": "ellipsis",
+            "overflow-wrap": "normal",
+            "white-space": "nowrap"
+          },
+          "uuid": "f589f9ae2",
+          "value": "JessicaBrown street"
+        }
+      ],
+      "dataType": "branch",
+      "uuid": "99700339-a636-480f-a5aa-aa838bd8e3ca",
+      "value": ""
+    },
+    {
+      "dataType": "leaf",
+      "name": "Name",
+      "config_field_name": "name",
+      "style": {
+        "height": "22px",
+        "font-size": "22px",
+        "font-family": "\"Baloo 2-ExtraBold\", \"Baloo 2\", \"sans-serif\"",
+        "font-weight": "800",
+        "color": "#001FC1",
+        "line-height": "26px",
+        "width": "200px",
+        "overflow-x": "hidden",
+        "overflow-y": "hidden",
+        "text-overflow": "ellipsis",
+        "overflow-wrap": "normal",
+        "white-space": "nowrap",
+        "text-align": "left",
+        "left": "20px",
+        "top": "66px",
+        "position": "absolute"
+      },
+      "uuid": "f589f9ae-a85b-4e19-8ac8-885c377270ed",
+      "value": "Jessica Brown"
+    },
+    {
+      "dataType": "leaf",
+      "name": "Title",
+      "config_field_name": "title",
+      "style": {
+        "width": "200px",
+        "height": "14px",
+        "font-size": "12px",
+        "font-family": "\"OPlusSans 3.0-Medium\", \"OPlusSans 30\", \"sans-serif\"",
+        "font-weight": "500",
+        "color": "rgb(0, 0, 0)",
+        "line-height": "14px",
+        "overflow-x": "hidden",
+        "overflow-y": "hidden",
+        "text-overflow": "ellipsis",
+        "overflow-wrap": "normal",
+        "white-space": "nowrap",
+        "text-align": "left",
+        "left": "20px",
+        "top": "88px",
+        "position": "absolute"
+      },
+      "uuid": "77d82c15-e66c-4a40-9c4d-2479c2af353d",
+      "value": "Marketing Manager"
+    },
+    {
+      "dataType": "leaf",
+      "name": "Company",
+      "config_field_name": "company",
+      "style": {
+        "top": "27px",
+        "left": "20px",
+        "font-size": "10px",
+        "font-family": "\"OPlusSans 3.0-Medium\", \"OPlusSans 30\", \"sans-serif\"",
+        "font-weight": "500",
+        "color": "rgb(0, 0, 0)",
+        "line-height": "14px",
+        "width": "145px",
+        "position": "absolute",
+        "display": "-webkit-box",
+        "overflow-x": "hidden",
+        "overflow-y": "hidden",
+        "text-overflow": "ellipsis",
+        "-webkit-line-clamp": "2",
+        "-webkit-box-orient": "vertical",
+        "height": "14px"
+      },
+      "uuid": "55c1e6ad-064d-49b2-8bca-68e24cd9c5c4",
+      "value": "IntSig Information Co.,Ltd."
+    },
+    {
+      "name": "Avatar",
+      "config_field_name": "avatar",
+      "dataType": "leaf",
+      "style": {
+        "object-fit": "cover",
+        "position": "absolute",
+        "top": "58px",
+        "left": "226px",
+        "width": "84px",
+        "height": "84px",
+        "border-top-left-radius": "50px",
+        "border-top-right-radius": "50px",
+        "border-bottom-right-radius": "50px",
+        "border-bottom-left-radius": "50px"
+      },
+      "uuid": "6dcb430d-4348-4340-9b55-66296656ca57",
+      "value": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF"
+    }
+  ]
+}
