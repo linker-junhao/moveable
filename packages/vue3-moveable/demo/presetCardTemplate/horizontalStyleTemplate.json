@@ -4,7 +4,7 @@
     "width": "345px",
     "overflow": "hidden",
     "position": "relative",
-    "background-image": "url(\"https://ss-static.intsig.net/10000_f9d2601e41d798425847dfa5820bf015.png\")",
+    "background-image": "url(\"https://img0.baidu.com/it/u=3032776730,2178451350&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800\")",
     "background-position-x": "initial",
     "background-position-y": "initial",
     "background-repeat-x": "initial",
@@ -26,7 +26,7 @@
   "editBehavior": {
     "locked": true
   },
-  "value": "url(\"https://ss-static.intsig.net/10000_f9d2601e41d798425847dfa5820bf015.png\")",
+  "value": "url(\"https://img0.baidu.com/it/u=3032776730,2178451350&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800\")",
   "children": [
     {
       "name": "GroupWrapper",
