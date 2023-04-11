@@ -28,6 +28,7 @@ import Title from '../CardMetaEls/Title/EditorView/index.vue'
 import Avatar from '../CardMetaEls/Avatar/EditorView/index.vue'
 import Company from '../CardMetaEls/Company/EditorView/index.vue'
 import Logo from '../CardMetaEls/Logo/EditorView/index.vue'
+import Image from '../CardMetaEls/Image/EditorView/index.vue'
 import useUserFocusAt from '../../store/userFocusAt';
 import { useMoveableStuffRefs } from '../../store/moveableStuffRefs';
 
@@ -38,7 +39,8 @@ const components: Record<string, any> = {
   Title,
   Avatar,
   Company,
-  Logo
+  Logo,
+  Image
 }
 
 type Container = HTMLElement | SVGElement | null | undefined

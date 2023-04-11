@@ -8,6 +8,7 @@
 import { defineComponent, computed } from 'vue';
 import { useStoreElsInEditor } from '../../store/storeElsInEditor';
 import Avatar from '../CardMetaEls/Avatar/ControlPanelView/index.vue';
+import Image from '../CardMetaEls/Image/ControlPanelView/index.vue';
 import Company from '../CardMetaEls/Company/ControlPanelView/index.vue';
 import Logo from '../CardMetaEls/Logo/ControlPanelView/index.vue';
 import Name from '../CardMetaEls/Name/ControlPanelView/index.vue';
@@ -24,7 +25,8 @@ export default defineComponent({
     Name,
     Text,
     Title,
-    GroupWrapper
+    GroupWrapper,
+    Image
   },
   setup() {
     const store = useStoreElsInEditor();

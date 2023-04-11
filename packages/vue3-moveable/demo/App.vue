@@ -10,12 +10,14 @@
                 <History />
             </div>
             <!-- 渲染预览 -->
-            <div @click.capture="handlePanelClick('MoveableView')" :ref="setRenderAreaRef" class="render-area">
-                <RulerAndGuide :renderAreaRef="renderAreaRef" />
-                <div :ref="setRootContainer" class="place-ground" style="margin: 30px;z-index: 1; position: relative;">
-                    <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef"
-                        :componentConfig="dataConfig" />
-                    <EditorMoveable :root-container="rootContainerRef" />
+            <div style="overflow: hidden;">
+                <div @click.capture="handlePanelClick('MoveableView')" :ref="setRenderAreaRef" class="render-area">
+                    <RulerAndGuide :renderAreaRef="renderAreaRef" />
+                    <div :ref="setRootContainer" class="place-ground" style="margin: 30px;z-index: 1; position: relative;">
+                        <CardElGenerator v-if="dataConfig.length" :key="dataConfig[0].uuid" :container="rootContainerRef"
+                            :componentConfig="dataConfig" />
+                        <EditorMoveable :root-container="rootContainerRef" />
+                    </div>
                 </div>
             </div>
             <!-- 组件控制栏 -->
@@ -127,6 +129,9 @@ export default defineComponent({
     height: 90vh;
     background: #f5f5f5;
     touch-action: manipulation;
+    overflow: auto;
+    transform: scale(1.5);
+    transform-origin: top left;
 }
 
 .right-panel {

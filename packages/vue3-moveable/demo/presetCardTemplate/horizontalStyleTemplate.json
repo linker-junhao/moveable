@@ -85,7 +85,7 @@
         },
         {
           "dataType": "leaf",
-          "name": "Name",
+          "name": "Text",
           "config_field_name": "email",
           "style": {
             "font-size": "10px",
@@ -104,7 +104,7 @@
         },
         {
           "dataType": "leaf",
-          "name": "Name",
+          "name": "Text",
           "config_field_name": "address",
           "style": {
             "font-size": "10px",
@@ -130,7 +130,7 @@
     },
     {
       "dataType": "leaf",
-      "name": "Name",
+      "name": "Text",
       "config_field_name": "name",
       "style": {
         "font-size": "18px",
@@ -154,7 +154,7 @@
     },
     {
       "dataType": "leaf",
-      "name": "Title",
+      "name": "Text",
       "config_field_name": "title",
       "style": {
         "font-size": "10px",
@@ -177,7 +177,7 @@
     },
     {
       "dataType": "leaf",
-      "name": "Company",
+      "name": "Text",
       "config_field_name": "company",
       "style": {
         "top": "136px",
@@ -201,7 +201,7 @@
       "value": "Company Information Co.,Ltd."
     },
     {
-      "name": "Avatar",
+      "name": "Image",
       "config_field_name": "avatar",
       "dataType": "leaf",
       "style": {

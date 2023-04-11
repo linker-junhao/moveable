@@ -1,7 +1,7 @@
 <template>
-  <div :ref="setRulerBoxRef" class="ruler-box"></div>
-  <div :ref="setVerticalRulerRef" class="ruler vertical"></div>
-  <div :ref="setHorizontalRulerRef" class="ruler horizontal"></div>
+    <div :ref="setRulerBoxRef" class="ruler-box"></div>
+    <div :ref="setVerticalRulerRef" class="ruler vertical"></div>
+    <div :ref="setHorizontalRulerRef" class="ruler horizontal"></div>
 </template>
 
 <script setup lang="ts">
@@ -10,26 +10,26 @@ import Gesto from 'gesto'
 import { ref, watchEffect } from "vue";
 
 const props = defineProps<{
-  renderAreaRef: HTMLElement
+    renderAreaRef: HTMLElement
 }>()
 
 const verticalRulerRef = ref()
-  const setVerticalRulerRef = (e) => {
-      verticalRulerRef.value = e
-  }
+const setVerticalRulerRef = (e) => {
+    verticalRulerRef.value = e
+}
 
-  const horizontalRulerRef = ref()
-  const setHorizontalRulerRef = (e) => {
-      horizontalRulerRef.value = e
-  }
+const horizontalRulerRef = ref()
+const setHorizontalRulerRef = (e) => {
+    horizontalRulerRef.value = e
+}
 
-  const rulerBoxRef = ref()
-  const setRulerBoxRef = (e) => {
-      rulerBoxRef.value = e
-  }
+const rulerBoxRef = ref()
+const setRulerBoxRef = (e) => {
+    rulerBoxRef.value = e
+}
 
-  watchEffect(() => {
-    if(horizontalRulerRef.value && verticalRulerRef.value && rulerBoxRef.value && props.renderAreaRef) {
+watchEffect(() => {
+    if (horizontalRulerRef.value && verticalRulerRef.value && rulerBoxRef.value && props.renderAreaRef) {
         const guides1 = new Guides(horizontalRulerRef.value, {
             type: "horizontal",
             displayDragPos: true,
@@ -48,13 +48,17 @@ const verticalRulerRef = ref()
 
         const box = rulerBoxRef.value;
 
+        const isStaticEl = (el: HTMLElement) => [...el.classList].some(cls => {
+            return cls === 'card-el' || cls.indexOf('moveable-') !== -1
+        })
         new Gesto(props.renderAreaRef).on("dragStart", e => {
-            if (e.inputEvent.target === box || e.inputEvent.target.nodeName === "A") {
+            if (e.inputEvent.target === box || isStaticEl(e.inputEvent.target)) {
+                e.preventDrag()
                 return false;
             }
         }).on("drag", e => {
-            if([...e.inputEvent.target.classList].includes('card-el')) {
-                return
+            if (isStaticEl(e.inputEvent.target)) {
+                return false
             }
             scrollX -= e.deltaX;
             scrollY -= e.deltaY;
@@ -73,7 +77,7 @@ const verticalRulerRef = ref()
             guides2.scrollGuides(0);
         });
     }
-  })
+})
 </script>
 
 <style>
@@ -93,10 +97,12 @@ const verticalRulerRef = ref()
     top: 0;
     left: 0;
 }
+
 .ruler.vertical {
     width: 30px;
     height: 100%;
 }
+
 .ruler.horizontal {
     width: 100%;
     height: 30px;

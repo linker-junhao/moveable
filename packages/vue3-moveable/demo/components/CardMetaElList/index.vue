@@ -8,12 +8,14 @@
     <div>
       <GroupWrapper @click="addItem" />
       <Text @click="addItem" />
+      <Image @click="addItem" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Text from '../CardMetaEls/Text/BeOptionPreview/index.vue'
+import Image from '../CardMetaEls/Image/BeOptionPreview/index.vue'
 import GroupWrapper from '../CardMetaEls/GroupWrapper/BeOptionPreview/index.vue'
 import { useStoreElsInEditor, ComponentConfig } from '../../store/storeElsInEditor';
 import { reactive } from 'vue'
