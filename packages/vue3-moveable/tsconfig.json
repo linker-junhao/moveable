@@ -1,7 +1,4 @@
-{  
-  "vueCompilerOptions": {
-    "target": 3,
-  },
+{
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
@@ -13,6 +10,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "allowJs": true,
     "baseUrl": ".",
     "types": [
       "webpack-env",
