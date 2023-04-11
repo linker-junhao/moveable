@@ -8,9 +8,7 @@
         <el-form-item label="字体大小" label-width="100px" label-align="right">
           <el-slider
             :model-value="parseInt(dataActiveComponentConfig.style['font-size']?.toString()?.replace(/px$/, '') || '0')"
-            @input="fontSizeChanged"
-            :min="10" :max="100"
-          />
+            @input="fontSizeChanged" :min="10" :max="100" />
         </el-form-item>
         <el-form-item label="颜色" label-width="100px" label-align="right">
           <el-color-picker v-model="dataActiveComponentConfig.style['color']" />
@@ -47,7 +45,8 @@
             <el-option value="Trebuchet MS" style="font-family: 'Trebuchet MS'">Trebuchet MS</el-option>
             <el-option value="Arial Black" style="font-family: 'Arial Black'">Arial Black</el-option>
             <el-option value="Impact" style="font-family: Impact">Impact</el-option>
-            <el-option value="Lucida Sans Unicode" style="font-family: 'Lucida Sans Unicode'">Lucida Sans Unicode</el-option>
+            <el-option value="Lucida Sans Unicode" style="font-family: 'Lucida Sans Unicode'">Lucida Sans
+              Unicode</el-option>
             <el-option value="Tahoma" style="font-family: Tahoma">Tahoma</el-option>
             <el-option value="Lucida Console" style="font-family: 'Lucida Console'">Lucida Console</el-option>
           </el-select>
@@ -59,29 +58,49 @@
             <el-option value="right">右对齐</el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="图标" label-width="100px" label-align="right">
+          <el-select :model-value="iconVal" @change="iconChangeHandler" :clearable="true" @clear="iconChangeHandler('')">
+            <el-option :value="iconCls" :key="iconCls" v-for="iconCls in icons">
+              <span :class="`card-icon-font ${iconCls}`" />
+            </el-option>
+          </el-select>
+        </el-form-item>
       </template>
     </el-form>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
-export default defineComponent({
-  name: 'TextControl',
-  setup() {
-    const storeElsInEditor = useStoreElsInEditor();
-    const { dataActiveComponentConfig } = storeElsInEditor;
 
-    const fontSizeChanged = (val: number) => {
-      dataActiveComponentConfig!.style['font-size'] = val+'px'
+const storeElsInEditor = useStoreElsInEditor();
+const { dataActiveComponentConfig } = storeElsInEditor;
+
+const fontSizeChanged = (val: number) => {
+  dataActiveComponentConfig!.style['font-size'] = val + 'px'
+}
+
+const icons = ['icon-email', 'icon-tel', 'icon-address', 'icon-zuoji']
+const iconVal = computed(() => {
+  if (dataActiveComponentConfig?.dataType === 'leaf') {
+    return icons.find(iconCls => (dataActiveComponentConfig.icon?.class || '')?.indexOf(iconCls) !== -1) || ''
+  }
+  return ''
+})
+
+const iconChangeHandler = (val: string) => {
+  console.log(val)
+  if (dataActiveComponentConfig?.dataType === 'leaf') {
+    if (dataActiveComponentConfig.icon) {
+      dataActiveComponentConfig.icon.class = `card-icon-font ${val}`
+    } else {
+      dataActiveComponentConfig.icon = {
+        class: `card-icon-font ${val}`
+      }
     }
+  }
+}
 
-    return {
-      dataActiveComponentConfig,
-      fontSizeChanged
-    };
-  },
-});
 </script>
 

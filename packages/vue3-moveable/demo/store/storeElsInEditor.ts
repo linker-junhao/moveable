@@ -1,17 +1,22 @@
 import { defineStore } from "pinia";
-import { computed, CSSProperties, reactive, ref } from "vue";
-interface BaseComponentConfig {
-  name: string
-  style: CSSProperties
-  uuid: string
-  value: any
+import { CSSProperties, reactive, ref } from "vue";
+
+interface EditBehaviorConfig {
   editBehavior?: {
     locked: boolean
   }
 }
+interface BaseComponentConfig extends EditBehaviorConfig {
+  name: string
+  style: CSSProperties
+  uuid: string
+  value: any
+  class?: string
+}
 
 export interface LeafComponentConfig extends BaseComponentConfig {
   dataType: 'leaf'
+  icon?: Partial<LeafComponentConfig>
 }
 export interface BranchComponentConfig extends BaseComponentConfig {
   dataType: 'branch'

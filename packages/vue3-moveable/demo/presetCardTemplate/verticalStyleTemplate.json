@@ -29,7 +29,7 @@
       "children": [
         {
           "dataType": "leaf",
-          "name": "Name",
+          "name": "Text",
           "config_field_name": "name",
           "style": {
             "width": "284px",
@@ -47,7 +47,7 @@
         },
         {
           "dataType": "leaf",
-          "name": "Title",
+          "name": "Text",
           "config_field_name": "title",
           "style": {
             "width": "240px",
@@ -65,7 +65,7 @@
         },
         {
           "dataType": "leaf",
-          "name": "Company",
+          "name": "Text",
           "config_field_name": "company",
           "style": {
             "width": "229px",
@@ -86,7 +86,7 @@
       "value": ""
     },
     {
-      "name": "Avatar",
+      "name": "Image",
       "config_field_name": "template_profile",
       "dataType": "leaf",
       "style": {
@@ -101,7 +101,7 @@
       "value": "https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF"
     },
     {
-      "name": "Logo",
+      "name": "Image",
       "config_field_name": "template_logo",
       "dataType": "leaf",
       "style": {

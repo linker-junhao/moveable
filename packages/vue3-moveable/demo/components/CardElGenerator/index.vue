@@ -58,8 +58,8 @@ const activeElRef = ref(null)
 
 
 const setActiveElRef = (e, activeConfigData) => {
-  activeElRef.value = e?.target
-  moveableStuffRefs.setActiveElRef(e?.target)
+  activeElRef.value = e?.currentTarget
+  moveableStuffRefs.setActiveElRef(e?.currentTarget)
   moveableStuffRefs.setActiveElContainerRef(props.container)
   storeElsInEditor.setActiveComponentConfig(activeConfigData)
 }

@@ -12,7 +12,11 @@ const genInitialConfig: () => ComponentConfig = () => {
     },
     dataType: 'leaf',
     uuid: uuidv4(),
-    value: 'test'
+    value: 'test',
+    icon: {
+      class: 'card-icon-font icon-email',
+      value: ''
+    }
   }
 }
 

@@ -23,11 +23,10 @@
             <!-- 组件控制栏 -->
             <div class="right-panel">
                 <div @click.capture="handlePanelClick('ConfigPanel')">
-                    <!-- <ActiveConfigJSONEditor /> -->
                     <ElementControlPane />
                 </div>
                 <div class="result-json">
-                    <JsonBox :json="storeElsInEditor.dataActiveComponentConfig" />
+                    <JsonBox :json="convertedOldFormatConfigData" />
                 </div>
             </div>
         </div>
@@ -88,6 +87,14 @@ export default defineComponent({
                         value: item.value,
                         style: item.style
                     }
+                    if(item.dataType === 'leaf' && item.icon) {
+                        result[item.config_field_name].icon = {
+                            isShow: true,
+                            value: item.icon.value,
+                            style: item.icon.style,
+                            class: item.icon.class
+                        }
+                    }
                 }
                 if(item.dataType === 'branch') {
                     item.children?.forEach(item => {
@@ -120,8 +127,8 @@ export default defineComponent({
 <style>
 .editor-page-box {
     display: grid;
-    grid-template-columns: 200px 1fr 400px;
-    column-gap: 20px;
+    grid-template-columns: 220px 1fr 400px;
+    column-gap: 12px;
 }
 
 .render-area {
