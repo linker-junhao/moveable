@@ -66,12 +66,12 @@ const onResize = e => {
   if (isCurElLocked.value) {
     return
   }
-  e.target.style.width = `${e.width}px`;
-  e.target.style.height = `${e.height}px`;
+  e.target.style.width = `${Math.round(e.width)}px`;
+  e.target.style.height = `${Math.round(e.height)}px`;
   e.target.style.transform = e.drag.transform;
   if (storeElsInEditor.dataActiveComponentConfig) {
-    storeElsInEditor.dataActiveComponentConfig.style.width = `${e.width}px`;
-    storeElsInEditor.dataActiveComponentConfig.style.height = `${e.height}px`;
+    storeElsInEditor.dataActiveComponentConfig.style.width = `${Math.round(e.width)}px`;
+    storeElsInEditor.dataActiveComponentConfig.style.height = `${Math.round(e.height)}px`;
     storeElsInEditor.dataActiveComponentConfig.style.transform = e.drag.transform;
   }
 

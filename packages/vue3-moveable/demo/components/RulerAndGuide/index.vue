@@ -1,13 +1,14 @@
 <template>
-    <div :ref="setRulerBoxRef" class="ruler-box"></div>
-    <div :ref="setVerticalRulerRef" class="ruler vertical"></div>
-    <div :ref="setHorizontalRulerRef" class="ruler horizontal"></div>
+    <div :ref="setRulerBoxRef" :class="`ruler-box`"></div>
+    <div :ref="setVerticalRulerRef" :class="`ruler vertical`"></div>
+    <div :ref="setHorizontalRulerRef" :class="`ruler horizontal`"></div>
 </template>
 
 <script setup lang="ts">
 import Guides from "@scena/guides"
 import Gesto from 'gesto'
 import { ref, watchEffect } from "vue";
+import { useCanvasConfig } from '../../store/editorConfigs/canvasConfig'
 
 const props = defineProps<{
     renderAreaRef: HTMLElement
@@ -28,20 +29,44 @@ const setRulerBoxRef = (e) => {
     rulerBoxRef.value = e
 }
 
+const canvasConfig = useCanvasConfig()
+const guidesHorizontal = ref<Guides>()
+const guidesVertical = ref<Guides>()
+
+watchEffect(() => {
+    const scale = canvasConfig.scale
+    if(guidesVertical.value) {
+        guidesVertical.value.setState({
+            zoom: scale
+        })
+    }
+    if(guidesHorizontal.value) {
+        guidesHorizontal.value.setState({
+            zoom: scale
+        })
+    }
+})
+
 watchEffect(() => {
     if (horizontalRulerRef.value && verticalRulerRef.value && rulerBoxRef.value && props.renderAreaRef) {
         const guides1 = new Guides(horizontalRulerRef.value, {
             type: "horizontal",
             displayDragPos: true,
-            rulerStyle: { left: "30px", width: "calc(100% - 30px)", height: "100%" },
+            rulerStyle: { left: "30px", top: "0", position: "absolute", width: "calc(100% - 30px)", height: "100%" },
             useResizeObserver: true,
+            height: 30,
+            zoom: 1
         });
+        guidesHorizontal.value = guides1
         const guides2 = new Guides(verticalRulerRef.value, {
             type: "vertical",
             displayDragPos: true,
-            rulerStyle: { top: "30px", height: "calc(100% - 30px)", width: "100%" },
+            rulerStyle: { top: "30px", left: "0", position: "absolute", height: "calc(100% - 30px)", width: "100%" },
             useResizeObserver: true,
+            width: 30,
+            zoom: 1
         });
+        guidesVertical.value = guides2
 
         let scrollX = 0;
         let scrollY = 0;

@@ -1,4 +1,5 @@
 <template>
+  <Base />
   <div v-if="dataActiveComponentConfig">
     <el-form>
       <el-form-item label="值" label-width="100px" label-align="right">
@@ -8,10 +9,10 @@
         <el-form-item label="字体大小" label-width="100px" label-align="right">
           <el-slider
             :model-value="parseInt(dataActiveComponentConfig.style['font-size']?.toString()?.replace(/px$/, '') || '0')"
-            @input="fontSizeChanged" :min="10" :max="100" />
+            @input="fontSizeChanged" :min="10" :max="50" />
         </el-form-item>
         <el-form-item label="颜色" label-width="100px" label-align="right">
-          <el-color-picker v-model="dataActiveComponentConfig.style['color']" />
+          <el-color-picker show-alpha v-model="dataActiveComponentConfig.style['color']" />
         </el-form-item>
         <el-form-item label="字体样式" label-width="100px" label-align="right">
           <el-select v-model="dataActiveComponentConfig.style['font-style']">
@@ -65,11 +66,18 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="多行省略" label-width="100px" label-align="right">
+          <el-switch :model-value="dataActiveComponentConfig.style['overflow'] === 'hidden'" active-color="#13ce66" inactive-color="#ff4949" active-text="开启" inactive-text="关闭" @change="textEllipsisOnOffHandler" />
+        </el-form-item>
+        <el-form-item v-show="dataActiveComponentConfig.style['overflow'] === 'hidden'" label="行数" label-width="100px" label-align="right">
+          <el-input-number v-model="dataActiveComponentConfig.style['-webkit-line-clamp']" :min="1" :max="10" @change="textEllipsisMultiLineChangeHandler" />
+        </el-form-item>
       </template>
     </el-form>
   </div>
 </template>
 <script setup lang="ts">
+import Base from '../Base/index.vue'
 import { computed } from 'vue';
 import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
@@ -90,7 +98,6 @@ const iconVal = computed(() => {
 })
 
 const iconChangeHandler = (val: string) => {
-  console.log(val)
   if (dataActiveComponentConfig?.dataType === 'leaf') {
     if (dataActiveComponentConfig.icon) {
       dataActiveComponentConfig.icon.class = `card-icon-font ${val}`
@@ -102,5 +109,23 @@ const iconChangeHandler = (val: string) => {
   }
 }
 
+const textEllipsisOnOffHandler = (onOff: boolean) => {
+  console.log(onOff)
+  if(onOff) {
+    dataActiveComponentConfig!.style['overflow'] = 'hidden'
+  } else {
+    delete dataActiveComponentConfig!.style['overflow']
+    delete dataActiveComponentConfig!.style['-webkit-line-clamp']
+  }
+}
+
+const textEllipsisMultiLineChangeHandler = (lineCount: number) => {
+  if (dataActiveComponentConfig!.style['overflow'] === 'hidden') {
+    dataActiveComponentConfig!.style['-webkit-line-clamp'] = lineCount
+  }
+}
+
 </script>
+
+
 

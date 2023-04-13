@@ -1,55 +1,69 @@
+
 <template>
-  <div class="control-panel">
-    <div class="control-panel__input">
-      <span>宽度:</span>
-      <input v-model="dataActiveComponentConfig.style['width']" />
-    </div>
-    <div class="control-panel__input">
-      <span>高度:</span>
-      <input v-model="dataActiveComponentConfig.style['height']" />
-    </div>
-    <div class="control-panel__input">
-      <span>透明度:</span>
-      <input v-model="dataActiveComponentConfig.style['opacity']" />
-    </div>
-    <div class="control-panel__input">
-      <span>位置:</span>
-      <select v-model="dataActiveComponentConfig.style['position']">
-        <option value="static">静态</option>
-        <option value="relative">相对</option>
-        <option value="absolute">绝对</option>
-        <option value="fixed">固定</option>
-        <option value="sticky">粘性</option>
-      </select>
-    </div>
-    <div class="control-panel__input">
-      <span>布局位置:</span>
-      <select v-model="dataActiveComponentConfig.style['transform']">
-        <option value="translateX(0)">无</option>
-        <option value="translateX(-100%)">左</option>
-        <option value="translateX(100%)">右</option>
-        <option value="translateY(-100%)">上</option>
-        <option value="translateY(100%)">下</option>
-      </select>
-    </div>
-  </div>
+  <el-form label-width="100px" label-align="right" v-if="dataActiveComponentConfig">
+    <el-form-item label="配置字段名">
+      <el-input v-model="dataActiveComponentConfig.config_field_name" />
+    </el-form-item>
+    <el-form-item label="锁定布局位置">
+      <el-checkbox
+        :model-value="dataActiveComponentConfig.editBehavior?.locked"
+        @change="layoutLockChangeHandler"
+      />
+    </el-form-item>
+    <el-form-item label="宽度">
+      <el-input
+        :model-value="dataActiveComponentConfig.style['width'] || 'auto'"
+        @input="val => WHinputInputHandler('width', val)"
+      />
+    </el-form-item>
+    <el-form-item label="宽度">
+      <el-input
+        :model-value="dataActiveComponentConfig.style['height'] || 'auto'"
+        @input="val => WHinputInputHandler('height', val)"
+      />
+    </el-form-item>
+    <el-form-item label="背景颜色" label-width="100px" label-align="right">
+      <el-color-picker show-alpha v-model="dataActiveComponentConfig.style['background-color']" />
+    </el-form-item>
+    <el-form-item label="透明度">
+      <el-slider :min="0" :max="1" :step="0.01" :model-value="+(dataActiveComponentConfig.style['opacity'] || 1)" 
+       @input="opacityChangeHandler"
+      />
+    </el-form-item>
+  </el-form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { useStoreElsInEditor } from '../../../../storeElsInEditor';
+<script setup lang="ts">
+import { Arrayable } from 'element-plus/es/utils';
+import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
-export default defineComponent({
-  name: 'ControlPanelView',
-  setup() {
-    const storeElsInEditor = useStoreElsInEditor();
-    const { dataActiveComponentConfig } = storeElsInEditor;
+const storeElsInEditor = useStoreElsInEditor();
+const { dataActiveComponentConfig } = storeElsInEditor;
 
-    return {
-      dataActiveComponentConfig,
-    };
-  },
-});
+const opacityChangeHandler = (val: Arrayable<number>) => {
+  if(dataActiveComponentConfig) {
+    dataActiveComponentConfig.style['opacity'] = val.toString()
+  }
+}
+
+const WHinputInputHandler = (type: 'width'|'height', val: string) => {
+  if(dataActiveComponentConfig) {
+    dataActiveComponentConfig.style[type] = val.toString()
+  }
+}
+
+const layoutLockChangeHandler = (val: boolean) => {
+  console.log(val)
+  if(dataActiveComponentConfig!.editBehavior) {
+    dataActiveComponentConfig!.editBehavior.locked = val
+  } else {
+    dataActiveComponentConfig!.editBehavior = {
+      locked: val
+    }
+  }
+  
+}
+
 </script>
 
 <style scoped>
@@ -65,3 +79,4 @@ export default defineComponent({
   gap: 10px;
 }
 </style>
+

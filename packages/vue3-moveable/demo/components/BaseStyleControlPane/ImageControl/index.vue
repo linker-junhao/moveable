@@ -1,4 +1,5 @@
 <template>
+  <Base />
   <el-form  :model="dataActiveComponentConfig" class="avatar-control-panel" v-if="dataActiveComponentConfig">
     <el-form-item label="图片地址" label-width="100px">
       <el-input v-model="dataActiveComponentConfig['value']" />
@@ -47,18 +48,21 @@
       </el-select>
     </el-form-item>
     <el-form-item label="边框颜色" label-width="100px">
-      <el-color-picker v-model="dataActiveComponentConfig.style['border-color']" />
+      <el-color-picker show-alpha v-model="dataActiveComponentConfig.style['border-color']" />
     </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts">
-import { BorderRadiusProperty } from 'csstype';
-import { defineComponent, computed, CSSProperties } from 'vue';
+import Base from '../Base/index.vue'
+import { defineComponent } from 'vue';
 import { useStoreElsInEditor } from '../../../store/storeElsInEditor';
 
 export default defineComponent({
   name: 'ImageControl',
+  components: {
+    Base
+  },
   setup() {
     const storeElsInEditor = useStoreElsInEditor();
     const { dataActiveComponentConfig } = storeElsInEditor;

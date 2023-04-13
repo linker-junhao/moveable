@@ -1,6 +1,7 @@
 <template>
   <template v-if="Array.isArray(props.componentConfig)">
     <component v-for="(configItem) in props.componentConfig"
+      :class="`card-el`"
       :key="configItem.uuid" @click.stop="(e) => setActiveElRef(e, configItem)" :is="components[configItem.name]"
       :component-config="configItem" v-slot="slotProps">
       <template v-if="configItem.dataType === 'branch'">
@@ -75,3 +76,9 @@ window.addEventListener('keydown', (e) => {
 
 
 </script>
+
+<style>
+.card-el {
+  position: relative;
+}
+</style>

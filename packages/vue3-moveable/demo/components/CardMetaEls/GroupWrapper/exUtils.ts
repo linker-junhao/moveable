@@ -9,9 +9,9 @@ const genInitialConfig: (children: ComponentConfig[]) => GroupWrapperType = (chi
     name: 'GroupWrapper',
     style: {
       "position": "absolute",
-      "width": "325px",
+      "width": "345px",
       "height": "200px",
-      "background-color": "#e6e6e6"
+      "background-color": "rgba(230, 230, 230, 0.45)"
     },
     editBehavior: {
       locked: false

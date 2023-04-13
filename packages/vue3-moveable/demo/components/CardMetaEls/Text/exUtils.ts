@@ -5,10 +5,8 @@ const genInitialConfig: () => ComponentConfig = () => {
   return {
     name: 'Text',
     style: {
-      "position": "absolute",
-      "width": "180px",
       "height": "24px",
-      "background-color": 'red'
+      "font-size": "20px"
     },
     dataType: 'leaf',
     uuid: uuidv4(),

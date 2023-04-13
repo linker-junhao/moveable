@@ -1,5 +1,5 @@
 <template>
-  <div @click="handleClick">Image</div>
+  <div @click="handleClick">图片</div>
 </template>
 
 <script setup lang="ts">

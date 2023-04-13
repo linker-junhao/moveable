@@ -1,58 +1,72 @@
 <template>
-  <div class="flex-control-panel">
-    <div class="flex-control-panel__input">
-      <span>Flex Direction:</span>
-      <select v-model="dataActiveComponentConfig.style['flex-direction']">
-        <option value="row">Row</option>
-        <option value="row-reverse">Row Reverse</option>
-        <option value="column">Column</option>
-        <option value="column-reverse">Column Reverse</option>
-      </select>
-    </div>
-    <div class="flex-control-panel__input">
-      <span>Flex Wrap:</span>
-      <select v-model="dataActiveComponentConfig.style['flex-wrap']">
-        <option value="nowrap">No Wrap</option>
-        <option value="wrap">Wrap</option>
-        <option value="wrap-reverse">Wrap Reverse</option>
-      </select>
-    </div>
-    <div class="flex-control-panel__input">
-      <span>Flex Justify:</span>
-      <select v-model="dataActiveComponentConfig.style['justify-content']">
-        <option value="flex-start">Flex Start</option>
-        <option value="flex-end">Flex End</option>
-        <option value="center">Center</option>
-        <option value="space-between">Space Between</option>
-        <option value="space-around">Space Around</option>
-        <option value="space-evenly">Space Evenly</option>
-      </select>
-    </div>
-    <div class="flex-control-panel__input">
-      <span>Flex Align:</span>
-      <select v-model="dataActiveComponentConfig.style['align-items']">
-        <option value="stretch">Stretch</option>
-        <option value="flex-start">Flex Start</option>
-        <option value="flex-end">Flex End</option>
-        <option value="center">Center</option>
-        <option value="baseline">Baseline</option>
-      </select>
-    </div>
-  </div>
+  <Base />
+  <el-form v-if="dataActiveComponentConfig" label-width="100px" label-align="right">
+    <el-form-item label="开启弹性布局">
+      <el-switch :model-value="dataActiveComponentConfig.style['display'] === 'flex'" active-color="#13ce66"
+        inactive-color="#ff4949" active-text="开启" inactive-text="关闭" @change="flexOnOffChangeHandler" />
+    </el-form-item>
+    <template v-if="dataActiveComponentConfig.style['display'] === 'flex'">
+      <el-form-item label="弹性方向">
+        <el-select v-model="dataActiveComponentConfig.style['flex-direction']">
+          <el-option label="行" value="row"></el-option>
+          <el-option label="行反转" value="row-reverse"></el-option>
+          <el-option label="列" value="column"></el-option>
+          <el-option label="列反转" value="column-reverse"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="弹性换行">
+        <el-select v-model="dataActiveComponentConfig.style['flex-wrap']">
+          <el-option label="不换行" value="nowrap"></el-option>
+          <el-option label="换行" value="wrap"></el-option>
+          <el-option label="换行反转" value="wrap-reverse"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="对齐方式">
+        <el-select v-model="dataActiveComponentConfig.style['justify-content']">
+          <el-option label="弹性开始" value="flex-start"></el-option>
+          <el-option label="弹性结束" value="flex-end"></el-option>
+          <el-option label="居中" value="center"></el-option>
+          <el-option label="两端对齐" value="space-between"></el-option>
+          <el-option label="环绕对齐" value="space-around"></el-option>
+          <el-option label="均匀分布" value="space-evenly"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="对齐项目">
+        <el-select v-model="dataActiveComponentConfig.style['align-items']">
+          <el-option label="拉伸" value="stretch"></el-option>
+          <el-option label="弹性开始" value="flex-start"></el-option>
+          <el-option label="弹性结束" value="flex-end"></el-option>
+          <el-option label="居中" value="center"></el-option>
+          <el-option label="基线" value="baseline"></el-option>
+        </el-select>
+      </el-form-item>
+    </template>
+  </el-form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStoreElsInEditor } from '../../../../store/storeElsInEditor';
+import Base from '../../../BaseStyleControlPane/Base/index.vue'
 
 export default defineComponent({
   name: 'FlexControlPanelView',
+  components: { Base },
   setup() {
     const storeElsInEditor = useStoreElsInEditor();
     const { dataActiveComponentConfig } = storeElsInEditor;
 
+    const flexOnOffChangeHandler = (isOn: boolean) => {
+      if (isOn) {
+        dataActiveComponentConfig!.style['display'] = 'flex'
+      } else {
+        dataActiveComponentConfig!.style['display'] = 'block'
+      }
+    }
+
     return {
       dataActiveComponentConfig,
+      flexOnOffChangeHandler
     };
   },
 });
@@ -71,3 +85,4 @@ export default defineComponent({
   gap: 10px;
 }
 </style>
+

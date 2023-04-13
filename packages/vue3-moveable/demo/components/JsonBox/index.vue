@@ -1,8 +1,6 @@
 <template>
-  <div class="json-box" style="position: relative;">
-    <pre v-html="prettyJson"></pre>
-    <button class="copy-button" style="position: sticky; bottom: 0; right: 0;" @click="copyJson">{{buttonText}}</button>
-  </div>
+  <button class="copy-button" style="position: sticky; top: 0; right: 0;" @click="copyJson">{{buttonText}}</button>
+  <pre class="json-box" v-html="prettyJson"></pre>
 </template>
 
 <script lang="ts">

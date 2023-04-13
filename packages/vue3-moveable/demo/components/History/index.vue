@@ -1,13 +1,13 @@
 <template>
   <div class="history">
     <div class="history-header">
-      <span class="history-title">History</span>
+      <span class="history-title">暂存记录</span>
       <div class="history-buttons">
         <el-button class="history-undo" :disabled="!canUndo" @click="undo">
-          Undo
+          <el-icon><i-ep-arrow-up /></el-icon>
         </el-button>
         <el-button class="history-redo" :disabled="!canRedo" @click="redo">
-          Redo
+          <el-icon><i-ep-arrow-down /></el-icon>
         </el-button>
       </div>
     </div>
@@ -106,7 +106,6 @@ export default defineComponent({
 .history {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .history-header {
